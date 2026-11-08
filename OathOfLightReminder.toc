@@ -1,0 +1,8 @@
+## Interface: 16001
+## Title: Oath of Light Reminder
+## Notes: Reminds Paladins to keep Oath of Light active on an ally.
+## IconTexture: 135909
+## Author: Norwig Crowmorne
+## Version: 0.1.0
+
+Core.lua
