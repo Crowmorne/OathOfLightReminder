@@ -7,3 +7,4 @@
 ## SavedVariablesPerCharacter: OathOfLightReminderDB
 
 Core.lua
+Settings.lua

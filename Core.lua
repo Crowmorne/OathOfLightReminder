@@ -1,3 +1,5 @@
+local _, ns = ... -- private table shared by all files of this addon
+
 local _, class = UnitClass("player")
 if class ~= "PALADIN" then return end
 
@@ -9,9 +11,10 @@ local DURATION = 300     -- 5 minutes
 -- When to call them is decided by the Oath timer below.
 ---------------------------------------------------------------------------
 
+local DEFAULT_POSITION = { point = "CENTER", relativePoint = "CENTER", x = 0, y = 120 }
+
 local icon = CreateFrame("Frame", nil, UIParent)
 icon:SetSize(44, 44)
-icon:SetPoint("CENTER", 0, 120)
 icon:Hide()
 
 icon.texture = icon:CreateTexture(nil, "ARTWORK")
@@ -41,11 +44,16 @@ icon:SetScript("OnDragStop", function(self)
 end)
 
 local function RestorePosition()
-    local position = OathOfLightReminderDB.position
-    if not position then return end
+    local position = OathOfLightReminderDB.position or DEFAULT_POSITION
     icon:ClearAllPoints()
     icon:SetPoint(position.point, UIParent, position.relativePoint, position.x, position.y)
 end
+
+local function ResetPosition()
+    OathOfLightReminderDB.position = nil
+    RestorePosition()
+end
+ns.ResetPosition = ResetPosition -- used by Settings.lua
 
 local function ShowRecast()
     icon.cooldown:Clear()
