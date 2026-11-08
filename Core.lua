@@ -19,7 +19,9 @@ icon.texture:SetAllPoints()
 icon.texture:SetTexture(C_Spell.GetSpellTexture(SPELL_ID))
 
 icon.cooldown = CreateFrame("Cooldown", nil, icon, "CooldownFrameTemplate")
-icon.cooldown:SetAllPoints()
+-- Inset so the square swipe stays inside the icon's rounded corners.
+icon.cooldown:SetPoint("TOPLEFT", 2, -2)
+icon.cooldown:SetPoint("BOTTOMRIGHT", -2, 2)
 icon.cooldown:SetHideCountdownNumbers(true)
 
 icon.text = icon:CreateFontString(nil, "OVERLAY", "GameFontNormal")
