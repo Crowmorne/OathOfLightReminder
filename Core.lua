@@ -46,19 +46,39 @@ end
 -- Oath timer: starts when you cast Oath of Light, runs for DURATION.
 -- Names and buff data are secret inside instances, so the timer is all
 -- the addon can rely on.
+--
+-- The end time is also saved per character in OathOfLightReminderDB as
+-- server time, so the timer survives /reload and relogging. GetTime() is
+-- used for the countdown itself because it has sub-second precision.
 ---------------------------------------------------------------------------
 
 local expiresAt -- GetTime() value when the Oath runs out, nil if none
 
-local function StartOath()
-    local now = GetTime()
-    expiresAt = now + DURATION
-    ShowRunning(now)
+local function StartOath(remaining)
+    expiresAt = GetTime() + remaining
+    ShowRunning(expiresAt - DURATION)
 end
 
 local function EndOath()
     expiresAt = nil
+    OathOfLightReminderDB.expiresAt = nil
     ShowRecast()
+end
+
+local function OnOathCast()
+    OathOfLightReminderDB.expiresAt = GetServerTime() + DURATION
+    StartOath(DURATION)
+end
+
+-- Resumes a saved timer after /reload or login, or shows "Recast" if it has run out.
+local function RestoreOath()
+    local saved = OathOfLightReminderDB.expiresAt
+    local remaining = saved and saved - GetServerTime()
+    if remaining and remaining > 0 then
+        StartOath(remaining)
+    else
+        EndOath()
+    end
 end
 
 icon:SetScript("OnUpdate", function()
@@ -81,7 +101,7 @@ local enabled = false
 local function Enable()
     enabled = true
     frame:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
-    EndOath()
+    RestoreOath()
     icon:Show()
 end
 
@@ -112,10 +132,18 @@ handlers.SPELLS_CHANGED = UpdateEnabled -- learning or unlearning the talent
 
 function handlers.UNIT_SPELLCAST_SUCCEEDED(_, _, spellId)
     if spellId == SPELL_ID then
-        StartOath()
+        OnOathCast()
     end
 end
 
+-- Saved variables are loaded before this event; create the table on first use.
+function handlers.ADDON_LOADED(addonName)
+    if addonName ~= "OathOfLightReminder" then return end
+    OathOfLightReminderDB = OathOfLightReminderDB or {}
+    frame:UnregisterEvent("ADDON_LOADED")
+end
+
+frame:RegisterEvent("ADDON_LOADED")
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:RegisterEvent("SPELLS_CHANGED")
 frame:SetScript("OnEvent", function(_, event, ...)

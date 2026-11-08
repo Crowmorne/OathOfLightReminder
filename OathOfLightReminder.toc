@@ -4,5 +4,6 @@
 ## IconTexture: 135909
 ## Author: Norwig Crowmorne
 ## Version: 0.1.0
+## SavedVariablesPerCharacter: OathOfLightReminderDB
 
 Core.lua
