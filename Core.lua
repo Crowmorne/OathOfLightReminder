@@ -27,6 +27,26 @@ icon.cooldown:SetHideCountdownNumbers(true)
 icon.text = icon:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 icon.text:SetPoint("TOP", icon, "BOTTOM", 0, -2)
 
+-- Dragging: the position is saved per character in OathOfLightReminderDB.position.
+icon:SetMovable(true)
+icon:SetClampedToScreen(true)
+icon:EnableMouse(true)
+icon:RegisterForDrag("LeftButton")
+
+icon:SetScript("OnDragStart", icon.StartMoving)
+icon:SetScript("OnDragStop", function(self)
+    self:StopMovingOrSizing()
+    local point, _, relativePoint, x, y = self:GetPoint()
+    OathOfLightReminderDB.position = { point = point, relativePoint = relativePoint, x = x, y = y }
+end)
+
+local function RestorePosition()
+    local position = OathOfLightReminderDB.position
+    if not position then return end
+    icon:ClearAllPoints()
+    icon:SetPoint(position.point, UIParent, position.relativePoint, position.x, position.y)
+end
+
 local function ShowRecast()
     icon.cooldown:Clear()
     icon.texture:SetDesaturated(true)
@@ -140,6 +160,7 @@ end
 function handlers.ADDON_LOADED(addonName)
     if addonName ~= "OathOfLightReminder" then return end
     OathOfLightReminderDB = OathOfLightReminderDB or {}
+    RestorePosition()
     frame:UnregisterEvent("ADDON_LOADED")
 end
 
