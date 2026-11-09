@@ -32,3 +32,4 @@ jobs:
         with:
           name: dry-run
           path: .release/*.zip
+          include-hidden-files: true # .release starts with a dot
