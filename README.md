@@ -45,3 +45,21 @@ On macOS, with a symbolic link:
 ```sh
 ln -s ~/development/OathOfLightReminder "/Applications/World of Warcraft/_forever_/Interface/AddOns/OathOfLightReminder"
 ```
+
+
+### Linting
+
+The code is checked with [luacheck](https://github.com/lunarmodules/luacheck), using the settings in `.luacheckrc`.
+CI runs it on every push, so install it locally to catch warnings before pushing:
+
+```sh
+scoop install luacheck      # Windows
+brew install luacheck       # macOS
+luarocks install luacheck   # anywhere with LuaRocks
+```
+
+Then run it from the repository root:
+
+```sh
+luacheck .
+```
