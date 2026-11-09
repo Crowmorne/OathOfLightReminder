@@ -1,0 +1,19 @@
+{
+   "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if git status --porcelain -- '*.lua' | grep -q .; then luacheck . >&2 || exit 2; fi"
+          }
+        ]
+      }
+    ]
+  }
+}
