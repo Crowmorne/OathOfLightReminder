@@ -25,7 +25,9 @@ jobs:
 
       - uses: BigWigsMods/packager@v2
         with:
-          args: -d # skip uploading
+          # -d: skip uploading
+          # -n: zip name : display name, without the default "-forever" suffix
+          args: -d -n "{package-name}-{project-version}:{project-version}"
 
       - name: Keep the zip as a workflow artifact
         uses: actions/upload-artifact@v7

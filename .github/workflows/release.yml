@@ -20,6 +20,9 @@ jobs:
         run: bash .github/scripts/changelog-section.sh "$VERSION" > RELEASE_CHANGELOG.md
 
       - uses: BigWigsMods/packager@v2
+        with:
+          # zip name : display name, without the default "-forever" suffix
+          args: -n "{package-name}-{project-version}:{project-version}"
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
           GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
