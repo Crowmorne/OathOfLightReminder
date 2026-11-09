@@ -3,7 +3,8 @@
 ## Notes: Reminds Paladins to keep Oath of Light active on an ally.
 ## IconTexture: 135909
 ## Author: Norwig Crowmorne
-## Version: 0.1.0
+## Version: @project-version@
+## X-Curse-Project-ID: 1793828
 ## SavedVariablesPerCharacter: OathOfLightReminderDB
 
 Core.lua

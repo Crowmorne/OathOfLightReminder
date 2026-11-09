@@ -1,0 +1,10 @@
+package-as: OathOfLightReminder
+
+manual-changelog:
+  filename: RELEASE_CHANGELOG.md
+  markup-type: markdown
+
+ignore:
+  - CLAUDE.md
+  - RELEASE_CHANGELOG.md
+  - spell_holy_greaterblessingoflight.jpg
