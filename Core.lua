@@ -1,9 +1,6 @@
 local _, ns = ... -- private table shared by all files of this addon
 
-local _, class = UnitClass("player")
-if class ~= "PALADIN" then return end
-
-ns.addonIsActive = true -- other files check this before doing anything
+if not ns.AddonIsActive() then return end
 
 local SPELL_ID = 1328548 -- Oath of Light
 local DURATION = 300     -- 5 minutes

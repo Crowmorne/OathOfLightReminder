@@ -2,7 +2,7 @@
 
 local _, ns = ...
 
-if not ns.addonIsActive then return end
+if not ns.AddonIsActive() then return end
 
 ns.icon:SetScript("OnMouseUp", function(self, button)
     if button ~= "RightButton" then return end
