@@ -8,6 +8,7 @@
 ## SavedVariablesPerCharacter: OathOfLightReminderDB
 
 AddonIsActive.lua
+Icon.lua
 Core.lua
 Settings.lua
 ContextMenu.lua
