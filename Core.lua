@@ -25,7 +25,6 @@ icon.cooldown = CreateFrame("Cooldown", nil, icon, "CooldownFrameTemplate")
 -- Inset so the square swipe stays inside the icon's rounded corners.
 icon.cooldown:SetPoint("TOPLEFT", 2, -2)
 icon.cooldown:SetPoint("BOTTOMRIGHT", -2, 2)
-icon.cooldown:SetHideCountdownNumbers(true)
 
 icon.text = icon:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 icon.text:SetPoint("TOP", icon, "BOTTOM", 0, -2)
@@ -54,6 +53,14 @@ local function ResetPosition()
     RestorePosition()
 end
 ns.ResetPosition = ResetPosition -- used by Settings.lua
+
+-- Shows the countdown either below the icon or on it, like an action button.
+local function ApplyStyle()
+    local onIcon = OathOfLightReminderDB.showCooldownNumbers
+    icon.cooldown:SetHideCountdownNumbers(not onIcon)
+    icon.text:SetShown(not onIcon)
+end
+ns.ApplyStyle = ApplyStyle -- used by Settings.lua
 
 local function ShowRecast()
     icon.cooldown:Clear()
@@ -183,6 +190,8 @@ function handlers.ADDON_LOADED(addonName)
     if addonName ~= "OathOfLightReminder" then return end
     OathOfLightReminderDB = OathOfLightReminderDB or {}
     RestorePosition()
+    ApplyStyle()
+    ns.RegisterSettings()
     frame:UnregisterEvent("ADDON_LOADED")
 end
 
