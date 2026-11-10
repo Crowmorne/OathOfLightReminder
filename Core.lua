@@ -128,6 +128,8 @@ icon:SetScript("OnMouseUp", function(self, button)
 
     MenuUtil.CreateContextMenu(self, function(_, rootDescription)
         rootDescription:CreateButton("Reset timer", EndOath)
+        rootDescription:CreateDivider()
+        rootDescription:CreateButton("Settings", ns.OpenSettings)
     end)
 end)
 

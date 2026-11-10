@@ -16,3 +16,7 @@ layout:AddInitializer(CreateSettingsButtonInitializer(
 ))
 
 Settings.RegisterAddOnCategory(category)
+
+function ns.OpenSettings()
+    Settings.OpenToCategory(category:GetID())
+end
