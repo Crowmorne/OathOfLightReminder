@@ -120,6 +120,18 @@ icon:SetScript("OnUpdate", function()
 end)
 
 ---------------------------------------------------------------------------
+-- Context menu: right-click the icon.
+---------------------------------------------------------------------------
+
+icon:SetScript("OnMouseUp", function(self, button)
+    if button ~= "RightButton" then return end
+
+    MenuUtil.CreateContextMenu(self, function(_, rootDescription)
+        rootDescription:CreateButton("Reset timer", EndOath)
+    end)
+end)
+
+---------------------------------------------------------------------------
 -- Enabling: only if you know Oath of Light.
 ---------------------------------------------------------------------------
 

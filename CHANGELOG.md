@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Right-click the icon and choose "Reset timer" to show "Recast" right away.
+
+
 ## [0.1.0] - 2026-11-09
 
 ### Added

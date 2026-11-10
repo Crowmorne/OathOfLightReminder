@@ -13,6 +13,7 @@ globals = {
     "CreateSettingsButtonInitializer",
     "GetServerTime",
     "GetTime",
+    "MenuUtil",
     "Settings",
     "UIParent",
     "UnitClass",
