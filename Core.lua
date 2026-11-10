@@ -3,6 +3,8 @@ local _, ns = ... -- private table shared by all files of this addon
 local _, class = UnitClass("player")
 if class ~= "PALADIN" then return end
 
+ns.addonIsActive = true -- other files check this before doing anything
+
 local SPELL_ID = 1328548 -- Oath of Light
 local DURATION = 300     -- 5 minutes
 
@@ -126,19 +128,8 @@ icon:SetScript("OnUpdate", function()
     end
 end)
 
----------------------------------------------------------------------------
--- Context menu: right-click the icon.
----------------------------------------------------------------------------
-
-icon:SetScript("OnMouseUp", function(self, button)
-    if button ~= "RightButton" then return end
-
-    MenuUtil.CreateContextMenu(self, function(_, rootDescription)
-        rootDescription:CreateButton("Reset timer", EndOath)
-        rootDescription:CreateDivider()
-        rootDescription:CreateButton("Settings", ns.OpenSettings)
-    end)
-end)
+ns.icon = icon       -- used by ContextMenu.lua
+ns.EndOath = EndOath -- used by ContextMenu.lua
 
 ---------------------------------------------------------------------------
 -- Enabling: only if you know Oath of Light.
