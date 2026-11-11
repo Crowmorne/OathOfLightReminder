@@ -31,7 +31,6 @@ local function EndOath()
     OathOfLightReminderDB.expiresAt = nil
     ns.ShowRecast()
 end
-ns.EndOath = EndOath -- used by ContextMenu.lua
 
 local function OnOathCast()
     OathOfLightReminderDB.expiresAt = GetServerTime() + DURATION
@@ -58,6 +57,16 @@ frame:SetScript("OnUpdate", function()
         ns.ShowRemaining(remaining)
     end
 end)
+
+---------------------------------------------------------------------------
+-- Context menu: right-click the icon.
+---------------------------------------------------------------------------
+
+local contextMenu = ns.CreateContextMenu({
+    resetTimer = EndOath,
+    openSettings = ns.OpenSettings,
+})
+ns.SetIconRightClick(function(icon) contextMenu:Open(icon) end)
 
 ---------------------------------------------------------------------------
 -- Enabling: only if you know Oath of Light.

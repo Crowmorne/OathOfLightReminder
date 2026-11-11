@@ -1,5 +1,6 @@
 std = "lua51"
 quiet = 1
+self = false -- methods don't have to use self
 
 exclude_files = {
 	"**/Libs",

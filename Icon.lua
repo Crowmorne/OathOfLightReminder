@@ -51,6 +51,15 @@ function ns.ResetPosition()
     ns.RestorePosition()
 end
 
+-- Calls onRightClick(icon) when the icon is right-clicked.
+function ns.SetIconRightClick(onRightClick)
+    icon:SetScript("OnMouseUp", function(self, button)
+        if button == "RightButton" then
+            onRightClick(self)
+        end
+    end)
+end
+
 ---------------------------------------------------------------------------
 -- Appearance
 ---------------------------------------------------------------------------
