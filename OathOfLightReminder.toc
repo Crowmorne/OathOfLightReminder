@@ -7,8 +7,13 @@
 ## X-Curse-Project-ID: 1793828
 ## SavedVariablesPerCharacter: OathOfLightReminderDB
 
+# Load order:
+# - AddonIsActive.lua comes first: every file calls ns.AddonIsActive() when it loads.
+# - Core.lua comes last: it connects the other files and starts the addon.
+# - ContextMenu.lua comes after Icon.lua: it sets up the icon's right-click when it loads.
+# - Otherwise files only use each other from inside functions, so their order doesn't matter.
 AddonIsActive.lua
 Icon.lua
-Core.lua
 Settings.lua
 ContextMenu.lua
+Core.lua

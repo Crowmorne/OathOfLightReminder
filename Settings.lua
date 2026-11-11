@@ -2,8 +2,7 @@
 
 local _, ns = ...
 
--- Core.lua stops early for non-Paladins, so there's nothing to configure.
-if not ns.ResetPosition then return end
+if not ns.AddonIsActive() then return end
 
 local category
 
