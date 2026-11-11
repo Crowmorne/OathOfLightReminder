@@ -60,16 +60,6 @@ frame:SetScript("OnUpdate", function()
 end)
 
 ---------------------------------------------------------------------------
--- Context menu: right-click the icon.
----------------------------------------------------------------------------
-
-local contextMenu = ns.CreateContextMenu({
-    resetTimer = EndOath,
-    openSettings = ns.OpenSettings,
-})
-icon:SetRightClick(function(owner) contextMenu:Open(owner) end)
-
----------------------------------------------------------------------------
 -- Enabling: only if you know Oath of Light.
 ---------------------------------------------------------------------------
 
@@ -114,12 +104,23 @@ function handlers.UNIT_SPELLCAST_SUCCEEDED(_, _, spellId)
 end
 
 -- Saved variables are loaded before this event; create the table on first use.
+-- Everything that reads them is set up here.
 function handlers.ADDON_LOADED(addonName)
     if addonName ~= "OathOfLightReminder" then return end
     OathOfLightReminderDB = OathOfLightReminderDB or {}
+
     icon:RestorePosition()
     icon:ApplyStyle()
-    ns.RegisterSettings(icon)
+
+    local settings = ns.CreateSettings(icon)
+
+    -- Right-click the icon for the context menu.
+    local contextMenu = ns.CreateContextMenu({
+        resetTimer = EndOath,
+        openSettings = function() settings:Open() end,
+    })
+    icon:SetRightClick(function(owner) contextMenu:Open(owner) end)
+
     frame:UnregisterEvent("ADDON_LOADED")
 end
 

@@ -4,13 +4,13 @@ local _, ns = ...
 
 if not ns.AddonIsActive() then return end
 
-local category
+-- Returns a settings object; settings:Open() shows the page.
+-- Call once, after OathOfLightReminderDB exists, because the checkbox stores
+-- its value there. icon is the object from ns.CreateIcon().
+function ns.CreateSettings(icon)
+    local settings = {}
 
--- Called by Core.lua once OathOfLightReminderDB exists, because the
--- checkbox stores its value there. icon is the object from ns.CreateIcon().
-function ns.RegisterSettings(icon)
-    local layout
-    category, layout = Settings.RegisterVerticalLayoutCategory("Oath of Light Reminder")
+    local category, layout = Settings.RegisterVerticalLayoutCategory("Oath of Light Reminder")
 
     local setting = Settings.RegisterAddOnSetting(
         category,
@@ -37,8 +37,10 @@ function ns.RegisterSettings(icon)
     ))
 
     Settings.RegisterAddOnCategory(category)
-end
 
-function ns.OpenSettings()
-    Settings.OpenToCategory(category:GetID())
+    function settings:Open()
+        Settings.OpenToCategory(category:GetID())
+    end
+
+    return settings
 end
