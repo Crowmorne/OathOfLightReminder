@@ -5,7 +5,8 @@ if not ns.AddonIsActive() then return end
 local SPELL_ID = 1328548 -- Oath of Light
 local DURATION = 300     -- 5 minutes
 
-ns.SetIconSpell(SPELL_ID)
+local icon = ns.CreateIcon()
+icon:SetSpell(SPELL_ID)
 
 local frame = CreateFrame("Frame")
 
@@ -23,13 +24,13 @@ local expiresAt -- GetTime() value when the Oath runs out, nil if none
 
 local function StartOath(remaining)
     expiresAt = GetTime() + remaining
-    ns.ShowRunning(expiresAt - DURATION, DURATION)
+    icon:ShowRunning(expiresAt - DURATION, DURATION)
 end
 
 local function EndOath()
     expiresAt = nil
     OathOfLightReminderDB.expiresAt = nil
-    ns.ShowRecast()
+    icon:ShowRecast()
 end
 
 local function OnOathCast()
@@ -54,7 +55,7 @@ frame:SetScript("OnUpdate", function()
     if remaining <= 0 then
         EndOath()
     else
-        ns.ShowRemaining(remaining)
+        icon:ShowRemaining(remaining)
     end
 end)
 
@@ -66,7 +67,7 @@ local contextMenu = ns.CreateContextMenu({
     resetTimer = EndOath,
     openSettings = ns.OpenSettings,
 })
-ns.SetIconRightClick(function(icon) contextMenu:Open(icon) end)
+icon:SetRightClick(function(owner) contextMenu:Open(owner) end)
 
 ---------------------------------------------------------------------------
 -- Enabling: only if you know Oath of Light.
@@ -78,14 +79,14 @@ local function Enable()
     enabled = true
     frame:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
     RestoreOath()
-    ns.icon:Show()
+    icon:Show()
 end
 
 local function Disable()
     enabled = false
     frame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
     expiresAt = nil
-    ns.icon:Hide()
+    icon:Hide()
 end
 
 local function UpdateEnabled()
@@ -116,9 +117,9 @@ end
 function handlers.ADDON_LOADED(addonName)
     if addonName ~= "OathOfLightReminder" then return end
     OathOfLightReminderDB = OathOfLightReminderDB or {}
-    ns.RestorePosition()
-    ns.ApplyStyle()
-    ns.RegisterSettings()
+    icon:RestorePosition()
+    icon:ApplyStyle()
+    ns.RegisterSettings(icon)
     frame:UnregisterEvent("ADDON_LOADED")
 end
 

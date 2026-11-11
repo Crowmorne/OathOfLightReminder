@@ -1,5 +1,5 @@
--- Icon: the frame, the functions that change how it looks, and its position.
--- When to call them is decided by the Oath timer.
+-- Icon: the frame, how it looks and where it is.
+-- What it shows and when is decided by whoever uses it.
 
 local _, ns = ...
 
@@ -7,85 +7,102 @@ if not ns.AddonIsActive() then return end
 
 local DEFAULT_POSITION = { point = "CENTER", relativePoint = "CENTER", x = 0, y = 120 }
 
-local icon = CreateFrame("Frame", nil, UIParent)
-icon:SetSize(44, 44)
-icon:Hide()
+-- Returns an icon object. Call once: WoW frames can't be destroyed.
+function ns.CreateIcon()
+    local icon = {}
 
-icon.texture = icon:CreateTexture(nil, "ARTWORK")
-icon.texture:SetAllPoints()
+    local frame = CreateFrame("Frame", nil, UIParent)
+    frame:SetSize(44, 44)
+    frame:Hide()
 
-icon.cooldown = CreateFrame("Cooldown", nil, icon, "CooldownFrameTemplate")
--- Inset so the square swipe stays inside the icon's rounded corners.
-icon.cooldown:SetPoint("TOPLEFT", 2, -2)
-icon.cooldown:SetPoint("BOTTOMRIGHT", -2, 2)
+    local texture = frame:CreateTexture(nil, "ARTWORK")
+    texture:SetAllPoints()
 
-icon.text = icon:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-icon.text:SetPoint("TOP", icon, "BOTTOM", 0, -2)
+    local cooldown = CreateFrame("Cooldown", nil, frame, "CooldownFrameTemplate")
+    -- Inset so the square swipe stays inside the icon's rounded corners.
+    cooldown:SetPoint("TOPLEFT", 2, -2)
+    cooldown:SetPoint("BOTTOMRIGHT", -2, 2)
 
-ns.icon = icon
+    local text = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    text:SetPoint("TOP", frame, "BOTTOM", 0, -2)
 
----------------------------------------------------------------------------
--- Position: dragging, saved per character in OathOfLightReminderDB.position.
----------------------------------------------------------------------------
+    -----------------------------------------------------------------------
+    -- Position: dragging, saved per character in OathOfLightReminderDB.position.
+    -----------------------------------------------------------------------
 
-icon:SetMovable(true)
-icon:SetClampedToScreen(true)
-icon:EnableMouse(true)
-icon:RegisterForDrag("LeftButton")
+    frame:SetMovable(true)
+    frame:SetClampedToScreen(true)
+    frame:EnableMouse(true)
+    frame:RegisterForDrag("LeftButton")
 
-icon:SetScript("OnDragStart", icon.StartMoving)
-icon:SetScript("OnDragStop", function(self)
-    self:StopMovingOrSizing()
-    local point, _, relativePoint, x, y = self:GetPoint()
-    OathOfLightReminderDB.position = { point = point, relativePoint = relativePoint, x = x, y = y }
-end)
-
-function ns.RestorePosition()
-    local position = OathOfLightReminderDB.position or DEFAULT_POSITION
-    icon:ClearAllPoints()
-    icon:SetPoint(position.point, UIParent, position.relativePoint, position.x, position.y)
-end
-
-function ns.ResetPosition()
-    OathOfLightReminderDB.position = nil
-    ns.RestorePosition()
-end
-
--- Calls onRightClick(icon) when the icon is right-clicked.
-function ns.SetIconRightClick(onRightClick)
-    icon:SetScript("OnMouseUp", function(self, button)
-        if button == "RightButton" then
-            onRightClick(self)
-        end
+    frame:SetScript("OnDragStart", frame.StartMoving)
+    frame:SetScript("OnDragStop", function()
+        frame:StopMovingOrSizing()
+        local point, _, relativePoint, x, y = frame:GetPoint()
+        OathOfLightReminderDB.position = { point = point, relativePoint = relativePoint, x = x, y = y }
     end)
-end
 
----------------------------------------------------------------------------
--- Appearance
----------------------------------------------------------------------------
+    function icon:RestorePosition()
+        local position = OathOfLightReminderDB.position or DEFAULT_POSITION
+        frame:ClearAllPoints()
+        frame:SetPoint(position.point, UIParent, position.relativePoint, position.x, position.y)
+    end
 
-function ns.SetIconSpell(spellId)
-    icon.texture:SetTexture(C_Spell.GetSpellTexture(spellId))
-end
+    function icon:ResetPosition()
+        OathOfLightReminderDB.position = nil
+        icon:RestorePosition()
+    end
 
--- Shows the countdown either below the icon or on it, like an action button.
-function ns.ApplyStyle()
-    local onIcon = OathOfLightReminderDB.showCooldownNumbers
-    icon.cooldown:SetHideCountdownNumbers(not onIcon)
-    icon.text:SetShown(not onIcon)
-end
+    -----------------------------------------------------------------------
+    -- Input
+    -----------------------------------------------------------------------
 
-function ns.ShowRecast()
-    icon.cooldown:Clear()
-    icon.texture:SetDesaturated(true)
-    icon.text:SetText("Recast")
-end
+    -- Calls onRightClick(frame) when the icon is right-clicked.
+    function icon:SetRightClick(onRightClick)
+        frame:SetScript("OnMouseUp", function(_, button)
+            if button == "RightButton" then
+                onRightClick(frame)
+            end
+        end)
+    end
 
-function ns.ShowRunning(startedAt, duration)
-    icon.cooldown:SetCooldown(startedAt, duration)
-    icon.texture:SetDesaturated(false)
-end
+    -----------------------------------------------------------------------
+    -- Appearance
+    -----------------------------------------------------------------------
 
-function ns.ShowRemaining(seconds)
-    icon.text:SetText(("%d:%02d"):format(math.floor(seconds / 60), seconds % 60))
+    function icon:Show()
+        frame:Show()
+    end
+
+    function icon:Hide()
+        frame:Hide()
+    end
+
+    function icon:SetSpell(spellId)
+        texture:SetTexture(C_Spell.GetSpellTexture(spellId))
+    end
+
+    -- Shows the countdown either below the icon or on it, like an action button.
+    function icon:ApplyStyle()
+        local onIcon = OathOfLightReminderDB.showCooldownNumbers
+        cooldown:SetHideCountdownNumbers(not onIcon)
+        text:SetShown(not onIcon)
+    end
+
+    function icon:ShowRecast()
+        cooldown:Clear()
+        texture:SetDesaturated(true)
+        text:SetText("Recast")
+    end
+
+    function icon:ShowRunning(startedAt, duration)
+        cooldown:SetCooldown(startedAt, duration)
+        texture:SetDesaturated(false)
+    end
+
+    function icon:ShowRemaining(seconds)
+        text:SetText(("%d:%02d"):format(math.floor(seconds / 60), seconds % 60))
+    end
+
+    return icon
 end
