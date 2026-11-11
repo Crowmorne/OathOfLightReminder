@@ -109,10 +109,25 @@ function handlers.ADDON_LOADED(addonName)
     if addonName ~= "OathOfLightReminder" then return end
     OathOfLightReminderDB = OathOfLightReminderDB or {}
 
-    icon:RestorePosition()
-    icon:ApplyStyle()
+    -- Icon position, saved per character.
+    icon:SetPosition(OathOfLightReminderDB.position)
+    icon:SetOnMoved(function(position)
+        OathOfLightReminderDB.position = position
+    end)
 
-    local settings = ns.CreateSettings(icon)
+    -- Countdown style, saved per character by the settings checkbox.
+    local function ApplyStyle()
+        icon:SetCountdownOnIcon(OathOfLightReminderDB.showCooldownNumbers)
+    end
+    ApplyStyle()
+
+    local settings = ns.CreateSettings(OathOfLightReminderDB, {
+        resetPosition = function()
+            OathOfLightReminderDB.position = nil
+            icon:SetPosition(nil)
+        end,
+        styleChanged = ApplyStyle,
+    })
 
     -- Right-click the icon for the context menu.
     local contextMenu = ns.CreateContextMenu({

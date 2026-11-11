@@ -27,8 +27,10 @@ function ns.CreateIcon()
     text:SetPoint("TOP", frame, "BOTTOM", 0, -2)
 
     -----------------------------------------------------------------------
-    -- Position: dragging, saved per character in OathOfLightReminderDB.position.
+    -- Position: dragging with the left mouse button.
     -----------------------------------------------------------------------
+
+    local onMoved -- called with the new position after a drag
 
     frame:SetMovable(true)
     frame:SetClampedToScreen(true)
@@ -38,19 +40,22 @@ function ns.CreateIcon()
     frame:SetScript("OnDragStart", frame.StartMoving)
     frame:SetScript("OnDragStop", function()
         frame:StopMovingOrSizing()
-        local point, _, relativePoint, x, y = frame:GetPoint()
-        OathOfLightReminderDB.position = { point = point, relativePoint = relativePoint, x = x, y = y }
+        if onMoved then
+            local point, _, relativePoint, x, y = frame:GetPoint()
+            onMoved({ point = point, relativePoint = relativePoint, x = x, y = y })
+        end
     end)
 
-    function icon:RestorePosition()
-        local position = OathOfLightReminderDB.position or DEFAULT_POSITION
+    -- position: { point, relativePoint, x, y }, or nil for the default position.
+    function icon:SetPosition(position)
+        position = position or DEFAULT_POSITION
         frame:ClearAllPoints()
         frame:SetPoint(position.point, UIParent, position.relativePoint, position.x, position.y)
     end
 
-    function icon:ResetPosition()
-        OathOfLightReminderDB.position = nil
-        icon:RestorePosition()
+    -- Calls fn(position) after the icon was dragged, with the same fields as SetPosition.
+    function icon:SetOnMoved(fn)
+        onMoved = fn
     end
 
     -----------------------------------------------------------------------
@@ -82,9 +87,9 @@ function ns.CreateIcon()
         texture:SetTexture(C_Spell.GetSpellTexture(spellId))
     end
 
-    -- Shows the countdown either below the icon or on it, like an action button.
-    function icon:ApplyStyle()
-        local onIcon = OathOfLightReminderDB.showCooldownNumbers
+    -- Shows the countdown on the icon like an action button if onIcon is true,
+    -- otherwise below it.
+    function icon:SetCountdownOnIcon(onIcon)
         cooldown:SetHideCountdownNumbers(not onIcon)
         text:SetShown(not onIcon)
     end

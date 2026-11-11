@@ -4,10 +4,10 @@ local _, ns = ...
 
 if not ns.AddonIsActive() then return end
 
--- Returns a settings object; settings:Open() shows the page.
--- Call once, after OathOfLightReminderDB exists, because the checkbox stores
--- its value there. icon is the object from ns.CreateIcon().
-function ns.CreateSettings(icon)
+-- Returns a settings object; settings:Open() shows the page. Call once.
+-- savedData: the table the checkbox stores its value in (showCooldownNumbers).
+-- actions: { resetPosition = function, styleChanged = function }
+function ns.CreateSettings(savedData, actions)
     local settings = {}
 
     local category, layout = Settings.RegisterVerticalLayoutCategory("Oath of Light Reminder")
@@ -16,12 +16,12 @@ function ns.CreateSettings(icon)
         category,
         "OathOfLightReminder_ShowCooldownNumbers",
         "showCooldownNumbers",
-        OathOfLightReminderDB,
+        savedData,
         Settings.VarType.Boolean,
         "Action Bar Cooldown style",
         false
     )
-    setting:SetValueChangedCallback(function() icon:ApplyStyle() end)
+    setting:SetValueChangedCallback(function() actions.styleChanged() end)
     Settings.CreateCheckbox(
         category,
         setting,
@@ -31,7 +31,7 @@ function ns.CreateSettings(icon)
     layout:AddInitializer(CreateSettingsButtonInitializer(
         "Icon position",
         "Reset position",
-        function() icon:ResetPosition() end,
+        function() actions.resetPosition() end,
         "Moves the icon back to its default position.",
         true
     ))
