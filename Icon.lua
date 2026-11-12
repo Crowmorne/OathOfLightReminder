@@ -98,11 +98,11 @@ function ns.CreateIcon(styles, defaultStyle)
         texture:SetTexture(C_Spell.GetSpellTexture(spellId))
     end
 
-    function icon:ShowRecast()
+    function icon:ShowExpired()
         running.startedAt, running.duration, running.remaining = nil, nil, nil
         cooldown:Clear()
         texture:SetDesaturated(true)
-        activeStyle:ShowRecast()
+        activeStyle:ShowExpired()
     end
 
     function icon:ShowRunning(startedAt, duration)
@@ -137,7 +137,7 @@ function ns.CreateIcon(styles, defaultStyle)
                 activeStyle:ShowRemaining(running.remaining)
             end
         else
-            activeStyle:ShowRecast()
+            activeStyle:ShowExpired()
         end
     end
 

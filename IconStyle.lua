@@ -18,6 +18,6 @@ function ns.IconStyle:Remove(_parts) end
 
 function ns.IconStyle:ShowRunning(_startedAt, _duration) end
 
-function ns.IconStyle:ShowRecast() end
+function ns.IconStyle:ShowExpired() end
 
 function ns.IconStyle:ShowRemaining(_seconds) end

@@ -34,7 +34,7 @@ end
 local function EndOath()
     expiresAt = nil
     OathOfLightReminderDB.expiresAt = nil
-    icon:ShowRecast()
+    icon:ShowExpired()
 end
 
 local function OnOathCast()

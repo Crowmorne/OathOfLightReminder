@@ -28,7 +28,7 @@ function ns.CreateDefaultStyle()
         text:Hide()
     end
 
-    function style:ShowRecast()
+    function style:ShowExpired()
         text:SetText("Recast")
     end
 
