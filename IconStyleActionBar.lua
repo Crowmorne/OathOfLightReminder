@@ -6,7 +6,7 @@ local _, ns = ...
 if not ns.AddonIsActive() then return end
 
 function ns.CreateActionBarStyle()
-    local style = {}
+    local style = CreateFromMixins(ns.IconStyle)
 
     function style:Apply(parts)
         -- Inset so the square swipe stays inside the icon's rounded corners.
@@ -15,18 +15,6 @@ function ns.CreateActionBarStyle()
         parts.cooldown:SetPoint("BOTTOMRIGHT", -2, 2)
         parts.cooldown:SetDrawEdge(true)
         parts.cooldown:SetHideCountdownNumbers(false)
-    end
-
-    function style:Remove()
-    end
-
-    function style:ShowRunning()
-    end
-
-    function style:ShowRecast()
-    end
-
-    function style:ShowRemaining()
     end
 
     return style

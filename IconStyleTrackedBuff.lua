@@ -9,7 +9,7 @@ if not ns.AddonIsActive() then return end
 local SIZE = 40
 
 function ns.CreateTrackedBuffStyle()
-    local style = {}
+    local style = CreateFromMixins(ns.IconStyle)
 
     local mask, overlay -- created on first Apply
 
@@ -36,15 +36,6 @@ function ns.CreateTrackedBuffStyle()
     function style:Remove(parts)
         parts.texture:RemoveMaskTexture(mask)
         overlay:Hide()
-    end
-
-    function style:ShowRunning()
-    end
-
-    function style:ShowRecast()
-    end
-
-    function style:ShowRemaining()
     end
 
     return style

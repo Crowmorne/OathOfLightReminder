@@ -11,6 +11,7 @@ globals = {
     "C_Spell",
     "C_SpellBook",
     "CreateFrame",
+    "CreateFromMixins",
     "CreateSettingsButtonInitializer",
     "GetServerTime",
     "GetTime",

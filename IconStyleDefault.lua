@@ -6,7 +6,7 @@ local _, ns = ...
 if not ns.AddonIsActive() then return end
 
 function ns.CreateDefaultStyle()
-    local style = {}
+    local style = CreateFromMixins(ns.IconStyle)
 
     local text -- countdown and "Recast" below the icon, created on first Apply
 
@@ -26,9 +26,6 @@ function ns.CreateDefaultStyle()
 
     function style:Remove()
         text:Hide()
-    end
-
-    function style:ShowRunning()
     end
 
     function style:ShowRecast()

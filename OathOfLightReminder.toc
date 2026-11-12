@@ -13,6 +13,7 @@
 # - All other files only use each other from inside functions, so their order doesn't matter.
 AddonIsActive.lua
 Icon.lua
+IconStyle.lua
 IconStyleDefault.lua
 IconStyleActionBar.lua
 IconStyleTrackedBuff.lua

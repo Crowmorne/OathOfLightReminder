@@ -1,15 +1,6 @@
 -- Icon: the frame, where it is and the parts every style shares.
--- How it looks is decided by the active style, what it shows and when by
--- whoever uses it.
---
--- A style is an object with these methods:
---   style:Apply(parts)            configure the shared parts, show its own elements
---   style:Remove(parts)           hide its own elements, detach what it attached
---   style:ShowRunning(startedAt, duration)
---   style:ShowRecast()
---   style:ShowRemaining(seconds)
--- parts: { frame, texture, cooldown }. Before Apply, the shared parts are
--- reset to the baseline in ResetParts, so a style only sets what differs.
+-- How it looks is decided by the active style (see IconStyle.lua), what it
+-- shows and when by whoever uses it.
 
 local _, ns = ...
 
