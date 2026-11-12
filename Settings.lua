@@ -5,7 +5,7 @@ local _, ns = ...
 if not ns.AddonIsActive() then return end
 
 -- Returns a settings object; settings:Open() shows the page. Call once.
--- savedData: the table the settings store their values in (style, showCooldownNumbers).
+-- savedData: the table the settings store their values in (style).
 -- actions: { resetPosition = function, styleChanged = function }
 function ns.CreateSettings(savedData, actions)
     local settings = {}
@@ -19,7 +19,7 @@ function ns.CreateSettings(savedData, actions)
         savedData,
         Settings.VarType.String,
         "Display style",
-        "actionBar"
+        "default"
     )
     styleSetting:SetValueChangedCallback(function() actions.styleChanged() end)
     Settings.CreateDropdown(
@@ -27,27 +27,12 @@ function ns.CreateSettings(savedData, actions)
         styleSetting,
         function()
             local container = Settings.CreateControlTextContainer()
+            container:Add("default", "Default")
             container:Add("actionBar", "Action Bar button")
             container:Add("trackedBuff", "Tracked Buff")
             return container:GetData()
         end,
         "How the icon looks."
-    )
-
-    local setting = Settings.RegisterAddOnSetting(
-        category,
-        "OathOfLightReminder_ShowCooldownNumbers",
-        "showCooldownNumbers",
-        savedData,
-        Settings.VarType.Boolean,
-        "Action Bar Cooldown style",
-        false
-    )
-    setting:SetValueChangedCallback(function() actions.styleChanged() end)
-    Settings.CreateCheckbox(
-        category,
-        setting,
-        "Shows the countdown on the icon like an action button, instead of below it."
     )
 
     layout:AddInitializer(CreateSettingsButtonInitializer(

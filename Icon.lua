@@ -3,7 +3,7 @@
 -- whoever uses it.
 --
 -- A style is an object with these methods:
---   style:Apply(parts, options)   configure the shared parts, show its own elements
+--   style:Apply(parts)            configure the shared parts, show its own elements
 --   style:Remove(parts)           hide its own elements, detach what it attached
 --   style:ShowRunning(startedAt, duration)
 --   style:ShowRecast()
@@ -130,15 +130,14 @@ function ns.CreateIcon(styles, defaultStyle)
     -- Style
     -----------------------------------------------------------------------
 
-    -- name: a key of styles, or nil for the default. options are passed to
-    -- the style as they are.
-    function icon:SetStyle(name, options)
+    -- name: a key of styles, or nil for the default.
+    function icon:SetStyle(name)
         if activeStyle then
             activeStyle:Remove(parts)
         end
         ResetParts()
         activeStyle = styles[name] or styles[defaultStyle]
-        activeStyle:Apply(parts, options)
+        activeStyle:Apply(parts)
 
         -- Let the new style show the current state.
         if running.startedAt then
