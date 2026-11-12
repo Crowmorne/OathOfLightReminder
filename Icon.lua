@@ -26,11 +26,15 @@ function ns.CreateIcon(styles, defaultStyle)
 
     local function ResetParts()
         frame:SetSize(SIZE, SIZE)
+        texture:ClearAllPoints()
+        texture:SetAllPoints()
         cooldown:ClearAllPoints()
         cooldown:SetAllPoints()
         cooldown:SetReverse(false)
+        cooldown:SetDrawSwipe(true)
         cooldown:SetSwipeTexture("Interface\\Buttons\\WHITE8X8", 0, 0, 0, 0.64)
         cooldown:SetDrawEdge(false)
+        cooldown:SetDrawBling(true)
         cooldown:SetHideCountdownNumbers(true)
     end
 

@@ -30,6 +30,7 @@ function ns.CreateSettings(savedData, actions)
             container:Add("default", "Default")
             container:Add("actionBar", "Action Bar button")
             container:Add("trackedBuff", "Tracked Buff")
+            container:Add("trackedBar", "Tracked Bar")
             return container:GetData()
         end,
         "How the icon looks."

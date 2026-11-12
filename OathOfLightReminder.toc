@@ -17,6 +17,7 @@ IconStyle.lua
 IconStyleDefault.lua
 IconStyleActionBar.lua
 IconStyleTrackedBuff.lua
+IconStyleTrackedBar.lua
 Settings.lua
 ContextMenu.lua
 Core.lua

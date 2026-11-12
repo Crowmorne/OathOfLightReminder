@@ -9,6 +9,7 @@ local icon = ns.CreateIcon({
     default = ns.CreateDefaultStyle(),
     actionBar = ns.CreateActionBarStyle(),
     trackedBuff = ns.CreateTrackedBuffStyle(),
+    trackedBar = ns.CreateTrackedBarStyle(SPELL_ID),
 }, "default")
 icon:SetSpell(SPELL_ID)
 

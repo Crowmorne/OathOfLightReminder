@@ -8,6 +8,7 @@ exclude_files = {
 
 globals = {
     -- WoW API
+    "COOLDOWN_DURATION_SEC",
     "C_Spell",
     "C_SpellBook",
     "CreateFrame",
