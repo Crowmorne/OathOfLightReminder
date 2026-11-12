@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 - Right-click the icon and choose "Reset timer" to show "Recast" right away.
 - The right-click menu also has "Settings", which opens the addon's settings page.
 - Option to show the countdown on the icon like an action button, instead of below it.
+- Display style option: "Action Bar button" or "Tracked Buff", which looks like a tracked buff in the Cooldown Manager.
 
 
 ## [0.1.0] - 2026-11-09

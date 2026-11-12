@@ -5,12 +5,34 @@ local _, ns = ...
 if not ns.AddonIsActive() then return end
 
 -- Returns a settings object; settings:Open() shows the page. Call once.
--- savedData: the table the checkbox stores its value in (showCooldownNumbers).
+-- savedData: the table the settings store their values in (style, showCooldownNumbers).
 -- actions: { resetPosition = function, styleChanged = function }
 function ns.CreateSettings(savedData, actions)
     local settings = {}
 
     local category, layout = Settings.RegisterVerticalLayoutCategory("Oath of Light Reminder")
+
+    local styleSetting = Settings.RegisterAddOnSetting(
+        category,
+        "OathOfLightReminder_Style",
+        "style",
+        savedData,
+        Settings.VarType.String,
+        "Display style",
+        "actionBar"
+    )
+    styleSetting:SetValueChangedCallback(function() actions.styleChanged() end)
+    Settings.CreateDropdown(
+        category,
+        styleSetting,
+        function()
+            local container = Settings.CreateControlTextContainer()
+            container:Add("actionBar", "Action Bar button")
+            container:Add("trackedBuff", "Tracked Buff")
+            return container:GetData()
+        end,
+        "How the icon looks."
+    )
 
     local setting = Settings.RegisterAddOnSetting(
         category,

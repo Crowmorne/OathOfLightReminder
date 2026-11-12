@@ -5,7 +5,10 @@ if not ns.AddonIsActive() then return end
 local SPELL_ID = 1328548 -- Oath of Light
 local DURATION = 300     -- 5 minutes
 
-local icon = ns.CreateIcon()
+local icon = ns.CreateIcon({
+    actionBar = ns.CreateActionBarStyle(),
+    trackedBuff = ns.CreateTrackedBuffStyle(),
+}, "actionBar")
 icon:SetSpell(SPELL_ID)
 
 local frame = CreateFrame("Frame")
@@ -115,9 +118,11 @@ function handlers.ADDON_LOADED(addonName)
         OathOfLightReminderDB.position = position
     end)
 
-    -- Countdown style, saved per character by the settings checkbox.
+    -- Display style and countdown position, saved per character by the settings.
     local function ApplyStyle()
-        icon:SetCountdownOnIcon(OathOfLightReminderDB.showCooldownNumbers)
+        icon:SetStyle(OathOfLightReminderDB.style, {
+            countdownOnIcon = OathOfLightReminderDB.showCooldownNumbers,
+        })
     end
     ApplyStyle()
 
