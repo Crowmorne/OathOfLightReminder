@@ -11,12 +11,19 @@ This addon shows a small icon with a countdown, so you always know when it's tim
 
 ## Features
 
-- **Countdown icon:** When you cast Oath of Light, the icon shows the time left, with a cooldown swipe like on your action bars.
-- **Recast reminder:** When the time is up, the icon turns grey and shows "Recast".
+- **Countdown:** When you cast Oath of Light, the icon shows the time left.
+  When the time is up, it turns grey.
+- **Display styles:** Pick the look that fits your UI:
+  - **Default:** the countdown and "Recast" below the icon.
+  - **Action Bar button:** the countdown on the icon, like a spell on your action bars.
+  - **Tracked Buff:** looks like a tracked buff in the Cooldown Manager.
+  - **Tracked Bar:** looks like a tracked bar in the Cooldown Manager, with the spell name and the time left.
+- **Size:** Scale the icon or bar, and set the bar's width for the Tracked Bar style.
 - **Survives reloads and relogs:** The timer picks up where it left off after `/reload` or logging back in.
 - **Movable:** Drag the icon wherever you like.
-  Its position is saved per character.
-- **Settings page:** Under Options → AddOns → Oath of Light Reminder, you can reset the icon to its default position.
+- **Right-click menu:** Reset the timer, or open the settings.
+- **Settings page:** Under Options → AddOns → Oath of Light Reminder, choose the style, size and bar width, or reset the icon to its default position.
+  All settings are saved per character.
 - **Only runs when needed:** The addon does nothing on other classes, or on Paladins who haven't learned Oath of Light.
 
 
