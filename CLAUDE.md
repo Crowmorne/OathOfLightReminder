@@ -55,6 +55,9 @@ It reminds Paladins to recast the talent _Oath of Light_ (lasts 5 minutes) on an
   Don't read extra requirements into a sentence.
 - **Build only what was asked**, in small steps.
   No speculative features, settings or slash commands.
+- **Don't build for cases that don't exist.**
+  Values that never change while the game runs, like the spell ID, are passed once when an object is created.
+  No setters, interface methods or state for things that can't change.
 - **Forever only:** no compatibility code for other clients, and no "this might differ on Forever" caveats for standard WoW addon behaviour.
 - **Answers:** answer the question directly first.
   If something doesn't exist (yet), say so plainly before explaining anything hypothetical.
