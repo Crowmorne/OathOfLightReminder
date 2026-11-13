@@ -14,18 +14,30 @@ local SIZE = 44
 function ns.CreateIcon(styles, defaultStyle)
     local icon = {}
 
+    -- frame holds the position and takes the mouse. The styles draw into
+    -- content, which is scaled for the size setting. Scaling frame itself
+    -- would also scale its offset from UIParent and move it on screen.
     local frame = CreateFrame("Frame", nil, UIParent)
     frame:Hide()
 
-    local texture = frame:CreateTexture(nil, "ARTWORK")
+    local content = CreateFrame("Frame", nil, frame)
+    content:SetPoint("CENTER")
+
+    -- frame always covers content, so dragging and clicking match what's drawn.
+    content:SetScript("OnSizeChanged", function()
+        local scale = content:GetScale()
+        frame:SetSize(content:GetWidth() * scale, content:GetHeight() * scale)
+    end)
+
+    local texture = content:CreateTexture(nil, "ARTWORK")
     texture:SetAllPoints()
 
-    local cooldown = CreateFrame("Cooldown", nil, frame, "CooldownFrameTemplate")
+    local cooldown = CreateFrame("Cooldown", nil, content, "CooldownFrameTemplate")
 
-    local parts = { frame = frame, texture = texture, cooldown = cooldown }
+    local parts = { frame = content, texture = texture, cooldown = cooldown }
 
     local function ResetParts()
-        frame:SetSize(SIZE, SIZE)
+        content:SetSize(SIZE, SIZE)
         texture:ClearAllPoints()
         texture:SetAllPoints()
         cooldown:ClearAllPoints()
@@ -122,8 +134,14 @@ function ns.CreateIcon(styles, defaultStyle)
     end
 
     -----------------------------------------------------------------------
-    -- Style
+    -- Style and size
     -----------------------------------------------------------------------
+
+    -- scale: 1 for the style's own size.
+    function icon:SetScale(scale)
+        content:SetScale(scale)
+        frame:SetSize(content:GetWidth() * scale, content:GetHeight() * scale)
+    end
 
     -- name: a key of styles, or nil for the default.
     function icon:SetStyle(name)

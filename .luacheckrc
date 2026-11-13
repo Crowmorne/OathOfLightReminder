@@ -17,6 +17,7 @@ globals = {
     "GetServerTime",
     "GetTime",
     "MenuUtil",
+    "MinimalSliderWithSteppersMixin",
     "Settings",
     "UIParent",
     "UnitClass",

@@ -5,11 +5,13 @@ if not ns.AddonIsActive() then return end
 local SPELL_ID = 1328548 -- Oath of Light
 local DURATION = 300     -- 5 minutes
 
+local trackedBar = ns.CreateTrackedBarStyle(SPELL_ID)
+
 local icon = ns.CreateIcon({
     default = ns.CreateDefaultStyle(),
     actionBar = ns.CreateActionBarStyle(),
     trackedBuff = ns.CreateTrackedBuffStyle(),
-    trackedBar = ns.CreateTrackedBarStyle(SPELL_ID),
+    trackedBar = trackedBar,
 }, "default")
 icon:SetSpell(SPELL_ID)
 
@@ -120,18 +122,21 @@ function handlers.ADDON_LOADED(addonName)
         OathOfLightReminderDB.position = position
     end)
 
-    -- Display style, saved per character by the settings.
-    local function ApplyStyle()
+    -- Display style, size and bar width, saved per character by the settings.
+    -- Size and bar width are percentages.
+    local function ApplyAppearance()
+        trackedBar:SetWidthScale((OathOfLightReminderDB.barWidth or 100) / 100)
         icon:SetStyle(OathOfLightReminderDB.style)
+        icon:SetScale((OathOfLightReminderDB.size or 100) / 100)
     end
-    ApplyStyle()
+    ApplyAppearance()
 
     local settings = ns.CreateSettings(OathOfLightReminderDB, {
         resetPosition = function()
             OathOfLightReminderDB.position = nil
             icon:SetPosition(nil)
         end,
-        styleChanged = ApplyStyle,
+        appearanceChanged = ApplyAppearance,
     })
 
     -- Right-click the icon for the context menu.

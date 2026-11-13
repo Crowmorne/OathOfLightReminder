@@ -16,6 +16,20 @@ function ns.CreateTrackedBarStyle(spellId)
 
     local mask, overlay, bar, pip, name, remaining -- created on first Apply
     local startedAt, duration -- of the running Oath, nil when expired
+    local widthScale = 1
+    local appliedFrame -- parts.frame while this style is applied, otherwise nil
+
+    local function UpdateWidth()
+        if appliedFrame then
+            appliedFrame:SetSize(WIDTH * widthScale, HEIGHT)
+        end
+    end
+
+    -- scale: 1 for the Cooldown Manager's default width.
+    function style:SetWidthScale(scale)
+        widthScale = scale
+        UpdateWidth()
+    end
 
     local function UpdateBar()
         local left = startedAt and startedAt + duration - GetTime()
@@ -44,7 +58,9 @@ function ns.CreateTrackedBarStyle(spellId)
 
         bar = CreateFrame("StatusBar", nil, parts.frame)
         bar:SetHeight(BAR_HEIGHT)
-        bar:SetPoint("LEFT", parts.texture, "RIGHT", 2, 0)
+        -- 2px right of the icon. Anchored to the frame, not to the shared
+        -- texture, whose anchors change whenever a style is applied.
+        bar:SetPoint("LEFT", ICON_SIZE + 2, 0)
         bar:SetPoint("RIGHT")
         bar:SetStatusBarTexture("UI-HUD-CoolDownManager-Bar")
         bar:SetStatusBarColor(1, 0.5, 0.25)
@@ -80,7 +96,8 @@ function ns.CreateTrackedBarStyle(spellId)
         overlay:Show()
         bar:Show()
 
-        parts.frame:SetSize(WIDTH, HEIGHT)
+        appliedFrame = parts.frame
+        UpdateWidth()
         parts.texture:ClearAllPoints()
         parts.texture:SetSize(ICON_SIZE, ICON_SIZE)
         parts.texture:SetPoint("LEFT")
@@ -91,6 +108,7 @@ function ns.CreateTrackedBarStyle(spellId)
     end
 
     function style:Remove(parts)
+        appliedFrame = nil
         parts.texture:RemoveMaskTexture(mask)
         overlay:Hide()
         bar:Hide()

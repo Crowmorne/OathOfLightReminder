@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
   - "**Action Bar button**": the countdown on the icon.
   - "**Tracked Buff**": looks like a tracked buff in the Cooldown Manager.
   - "**Tracked Bar**": looks like a tracked bar in the Cooldown Manager.
+- Size option in the settings, and a bar width option for the "Tracked Bar" style.
 
 
 ## [0.1.0] - 2026-11-09
