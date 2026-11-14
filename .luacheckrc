@@ -19,6 +19,7 @@ globals = {
     "GetServerTime",
     "GetTime",
     "hooksecurefunc",
+    "InCombatLockdown",
     "MenuUtil",
     "MinimalSliderWithSteppersMixin",
     "Settings",

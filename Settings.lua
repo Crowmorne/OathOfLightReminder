@@ -15,7 +15,7 @@ end
 
 -- Returns a settings object; settings:Open() shows the page. Call once.
 -- savedData: the table the settings store their values in
---   (style, barWidth, size, hideUntil, attachTo, attachSide).
+--   (style, barWidth, size, hideUntil, showWhen, attachTo, attachSide).
 -- oathDuration: how long Oath of Light lasts, in seconds.
 -- actions: { resetPosition = function, appearanceChanged = function, positionChanged = function }
 function ns.CreateSettings(savedData, oathDuration, actions)
@@ -82,6 +82,18 @@ function ns.CreateSettings(savedData, oathDuration, actions)
         "Hides the icon until this much time is left.\n"
             .. FormatTime(oathDuration) .. ": always shown.\n"
             .. "0:00: only shown once it's time to recast."
+    )
+
+    Settings.CreateDropdown(
+        category,
+        RegisterSetting("showWhen", Settings.VarType.String, "Show", "always"),
+        function()
+            local container = Settings.CreateControlTextContainer()
+            container:Add("always", "Always")
+            container:Add("inCombat", "In combat only")
+            return container:GetData()
+        end,
+        "In combat only: the icon is hidden while you're out of combat, whatever the timer shows."
     )
 
     local sideSetting = RegisterSetting("attachSide", Settings.VarType.String, "Side", "below", PositionChanged)

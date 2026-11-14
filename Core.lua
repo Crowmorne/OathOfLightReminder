@@ -59,8 +59,9 @@ local function RestoreOath()
 end
 
 -- Every frame: counts down, and shows the icon while the addon is enabled and
--- the time left has reached the "Hide until" setting (seconds), or the Oath
--- has run out.
+-- both settings allow it:
+-- - "Hide until" (seconds): the time left has reached it, or the Oath has run out.
+-- - "Show": always, or only while you're in combat.
 -- While the settings page is open, the icon is always shown, so it can be
 -- moved and its look checked.
 frame:SetScript("OnUpdate", function()
@@ -73,11 +74,10 @@ frame:SetScript("OnUpdate", function()
         icon:ShowRemaining(remaining)
     end
 
-    icon:SetShown(enabled and (
-        settings:IsOpen()
-        or not remaining
-        or remaining <= OathOfLightReminderDB.hideUntil
-    ))
+    local db = OathOfLightReminderDB
+    local timeAllows = not remaining or remaining <= db.hideUntil
+    local combatAllows = db.showWhen ~= "inCombat" or InCombatLockdown()
+    icon:SetShown(enabled and (settings:IsOpen() or (timeAllows and combatAllows)))
 end)
 
 ---------------------------------------------------------------------------

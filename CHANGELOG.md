@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
   Dragging the icon detaches it again.
 - "Hide until" option in the settings: keeps the icon hidden until only that much time is left, or until it's time to recast.
   While the addon's settings page is open, the icon is always shown, so you can move it and see your changes.
+- "Show" option in the settings: choose "In combat only" to hide the icon whenever you're out of combat.
 
 
 ## [0.2.0] - 2026-11-13
