@@ -30,6 +30,13 @@ It reminds Paladins to recast the talent _Oath of Light_ (lasts 5 minutes) on an
   Don't move entries out of `[Unreleased]` or add version headings unless asked.
 
 
+## README
+
+- **The README's player-facing part is also the CurseForge description:** the user pastes everything above "Development" there.
+  Write that part for players.
+- **Every user-facing change also updates the README's feature list**, in the same change as the code.
+
+
 ## Verified game API facts (tested in game on Forever)
 
 - **Oath of Light:** spell ID `1328548`.

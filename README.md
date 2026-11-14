@@ -19,10 +19,15 @@ This addon shows a small icon with a countdown, so you always know when it's tim
   - **Tracked Buff:** looks like a tracked buff in the Cooldown Manager.
   - **Tracked Bar:** looks like a tracked bar in the Cooldown Manager, with the spell name and the time left.
 - **Size:** Scale the icon or bar, and set the bar's width for the Tracked Bar style.
+- **Hide until needed:** Keep the icon hidden until only a set amount of time is left, or until it's time to recast.
+- **In combat only:** Optionally hide the icon whenever you're out of combat.
 - **Survives reloads and relogs:** The timer picks up where it left off after `/reload` or logging back in.
 - **Movable:** Drag the icon wherever you like.
+- **Attach to the Cooldown Manager:** Keep the icon next to your Tracked Buffs or Tracked Bars, with the same spacing as their own icons.
+  It moves along when you move them in Edit Mode.
 - **Right-click menu:** Reset the timer, or open the settings.
-- **Settings page:** Under Options → AddOns → Oath of Light Reminder, choose the style, size and bar width, or reset the icon to its default position.
+- **Settings page:** Under Options → AddOns → Oath of Light Reminder, change all of the above, or reset the icon to its default position.
+  While the page is open, the icon is always shown, so you can see your changes.
   All settings are saved per character.
 - **Only runs when needed:** The addon does nothing on other classes, or on Paladins who haven't learned Oath of Light.
 
