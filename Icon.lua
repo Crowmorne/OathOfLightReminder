@@ -121,12 +121,8 @@ function ns.CreateIcon(styles, defaultStyle)
     local activeStyle
     local running = { startedAt = nil, duration = nil, remaining = nil } -- startedAt is nil when not running
 
-    function icon:Show()
-        frame:Show()
-    end
-
-    function icon:Hide()
-        frame:Hide()
+    function icon:SetShown(shown)
+        frame:SetShown(shown)
     end
 
     function icon:SetSpell(spellId)

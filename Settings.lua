@@ -15,18 +15,22 @@ end
 
 -- Returns a settings object; settings:Open() shows the page. Call once.
 -- savedData: the table the settings store their values in
---   (style, barWidth, size, attachTo, attachSide).
+--   (style, barWidth, size, hideUntil, attachTo, attachSide).
+-- oathDuration: how long Oath of Light lasts, in seconds.
 -- actions: { resetPosition = function, appearanceChanged = function, positionChanged = function }
-function ns.CreateSettings(savedData, actions)
+function ns.CreateSettings(savedData, oathDuration, actions)
     local settings = {}
 
     local category, layout = Settings.RegisterVerticalLayoutCategory("Oath of Light Reminder")
 
+    -- onChanged: called after the value changed; nil if the value is read when needed.
     local function RegisterSetting(key, varType, label, default, onChanged)
         local setting = Settings.RegisterAddOnSetting(
             category, "OathOfLightReminder_" .. key, key, savedData, varType, label, default
         )
-        setting:SetValueChangedCallback(function() onChanged() end)
+        if onChanged then
+            setting:SetValueChangedCallback(function() onChanged() end)
+        end
         return setting
     end
 
@@ -63,6 +67,21 @@ function ns.CreateSettings(savedData, actions)
         RegisterSetting("size", Settings.VarType.Number, "Size", 100, AppearanceChanged),
         PercentSliderOptions(10), -- like the Cooldown Manager's icon size
         "Size of the icon or bar."
+    )
+
+    -- Seconds, shown as "m:ss". The default shows the icon for the whole Oath.
+    local function FormatTime(seconds)
+        return ("%d:%02d"):format(math.floor(seconds / 60), seconds % 60)
+    end
+    local hideUntilOptions = Settings.CreateSliderOptions(0, oathDuration, 5)
+    hideUntilOptions:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, FormatTime)
+    Settings.CreateSlider(
+        category,
+        RegisterSetting("hideUntil", Settings.VarType.Number, "Hide until", oathDuration),
+        hideUntilOptions,
+        "Hides the icon until this much time is left.\n"
+            .. FormatTime(oathDuration) .. ": always shown.\n"
+            .. "0:00: only shown once it's time to recast."
     )
 
     local sideSetting = RegisterSetting("attachSide", Settings.VarType.String, "Side", "below", PositionChanged)
