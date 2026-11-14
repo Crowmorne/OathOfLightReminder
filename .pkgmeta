@@ -7,5 +7,6 @@ manual-changelog:
 ignore:
   - CLAUDE.md
   - RELEASE_CHANGELOG.md
+  - screenshot-settings.png
   - screenshot-styles.png
   - spell_holy_greaterblessingoflight.jpg
