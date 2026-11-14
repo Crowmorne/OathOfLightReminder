@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 - "Attach to Cooldown Manager" option in the settings: keeps the icon next to your Tracked Buffs or Tracked Bars, on the side you choose and with the same spacing as their own icons, and moves it along when you move them or change their padding in Edit Mode.
   Dragging the icon detaches it again.
 - "Hide until" option in the settings: keeps the icon hidden until only that much time is left, or until it's time to recast.
+  While the addon's settings page is open, the icon is always shown, so you can move it and see your changes.
 
 
 ## [0.2.0] - 2026-11-13

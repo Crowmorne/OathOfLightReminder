@@ -29,6 +29,7 @@ local frame = CreateFrame("Frame")
 
 local expiresAt -- GetTime() value when the Oath runs out, nil if none
 local enabled = false -- see Enabling below
+local settings -- the settings page, created once the saved variables are loaded
 
 local function StartOath(remaining)
     expiresAt = GetTime() + remaining
@@ -60,6 +61,8 @@ end
 -- Every frame: counts down, and shows the icon while the addon is enabled and
 -- the time left has reached the "Hide until" setting (seconds), or the Oath
 -- has run out.
+-- While the settings page is open, the icon is always shown, so it can be
+-- moved and its look checked.
 frame:SetScript("OnUpdate", function()
     local remaining = expiresAt and math.ceil(expiresAt - GetTime())
     if remaining and remaining <= 0 then
@@ -70,7 +73,11 @@ frame:SetScript("OnUpdate", function()
         icon:ShowRemaining(remaining)
     end
 
-    icon:SetShown(enabled and (not remaining or remaining <= OathOfLightReminderDB.hideUntil))
+    icon:SetShown(enabled and (
+        settings:IsOpen()
+        or not remaining
+        or remaining <= OathOfLightReminderDB.hideUntil
+    ))
 end)
 
 ---------------------------------------------------------------------------
@@ -157,7 +164,7 @@ function handlers.ADDON_LOADED(addonName)
     end
     ApplyAppearance()
 
-    local settings = ns.CreateSettings(OathOfLightReminderDB, DURATION, {
+    settings = ns.CreateSettings(OathOfLightReminderDB, DURATION, {
         resetPosition = function()
             OathOfLightReminderDB.position = nil
             icon:SetPosition(nil)

@@ -22,6 +22,7 @@ globals = {
     "MenuUtil",
     "MinimalSliderWithSteppersMixin",
     "Settings",
+    "SettingsPanel",
     "UIParent",
     "UnitClass",
 

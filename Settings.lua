@@ -152,6 +152,11 @@ function ns.CreateSettings(savedData, oathDuration, actions)
         Settings.OpenToCategory(category:GetID())
     end
 
+    -- True while the settings panel shows this page.
+    function settings:IsOpen()
+        return SettingsPanel:IsShown() and SettingsPanel:GetCurrentCategory() == category
+    end
+
     -- Sets "Attach to Cooldown Manager" to No.
     function settings:Detach()
         attachSetting:SetValue("none")
