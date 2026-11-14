@@ -9,12 +9,13 @@ if not ns.AddonIsActive() then return end
 local DEFAULT_POSITION = { point = "CENTER", relativePoint = "CENTER", x = 0, y = 120 }
 local SIZE = 44
 
--- For AttachTo: which point of the icon touches which point of the other frame.
+-- For AttachTo: which point of the icon touches which point of the other
+-- frame, and in which direction the gap pushes the icon away from it.
 local SIDES = {
-    above = { point = "BOTTOM", relativePoint = "TOP" },
-    below = { point = "TOP", relativePoint = "BOTTOM" },
-    left = { point = "RIGHT", relativePoint = "LEFT" },
-    right = { point = "LEFT", relativePoint = "RIGHT" },
+    above = { point = "BOTTOM", relativePoint = "TOP", x = 0, y = 1 },
+    below = { point = "TOP", relativePoint = "BOTTOM", x = 0, y = -1 },
+    left = { point = "RIGHT", relativePoint = "LEFT", x = -1, y = 0 },
+    right = { point = "LEFT", relativePoint = "RIGHT", x = 1, y = 0 },
 }
 
 -- styles: { [name] = style object }, defaultStyle: name used for unknown names.
@@ -86,12 +87,13 @@ function ns.CreateIcon(styles, defaultStyle)
     end
 
     -- Places the icon centred against one side of anchor: "above", "below",
-    -- "left" or "right". The game keeps it there when anchor moves or
-    -- changes size. Dragging the icon replaces this with a normal position.
-    function icon:AttachTo(anchor, side)
-        local sidePoints = SIDES[side]
+    -- "left" or "right", gap pixels away (negative values overlap). The game
+    -- keeps it there when anchor moves or changes size. Dragging the icon
+    -- replaces this with a normal position.
+    function icon:AttachTo(anchor, side, gap)
+        local s = SIDES[side]
         frame:ClearAllPoints()
-        frame:SetPoint(sidePoints.point, anchor, sidePoints.relativePoint)
+        frame:SetPoint(s.point, anchor, s.relativePoint, s.x * gap, s.y * gap)
     end
 
     -- Calls fn(position) after the icon was dragged, with the same fields as SetPosition.

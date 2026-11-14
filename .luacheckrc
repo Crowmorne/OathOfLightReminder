@@ -18,6 +18,7 @@ globals = {
     "CreateSettingsButtonInitializer",
     "GetServerTime",
     "GetTime",
+    "hooksecurefunc",
     "MenuUtil",
     "MinimalSliderWithSteppersMixin",
     "Settings",

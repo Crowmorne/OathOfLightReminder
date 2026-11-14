@@ -125,12 +125,25 @@ function handlers.ADDON_LOADED(addonName)
     local function ApplyPosition()
         local anchor = cooldownManagerFrames[OathOfLightReminderDB.attachTo]
         if anchor then
-            icon:AttachTo(anchor, OathOfLightReminderDB.attachSide)
+            -- The same spacing the Cooldown Manager frame uses between its own
+            -- items; not set yet until that frame first lays out its items.
+            local gap = anchor.childXPadding or 0
+            icon:AttachTo(anchor, OathOfLightReminderDB.attachSide, gap)
         else
             icon:SetPosition(OathOfLightReminderDB.position)
         end
     end
     ApplyPosition()
+
+    -- A Cooldown Manager frame lays out its items again whenever its Edit Mode
+    -- settings are applied or changed, for example the padding.
+    for _, viewer in pairs(cooldownManagerFrames) do
+        hooksecurefunc(viewer, "RefreshLayout", function()
+            if cooldownManagerFrames[OathOfLightReminderDB.attachTo] == viewer then
+                ApplyPosition()
+            end
+        end)
+    end
 
     -- Display style, size and bar width, saved per character by the settings.
     -- Size and bar width are percentages.
