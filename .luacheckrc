@@ -8,6 +8,8 @@ exclude_files = {
 
 globals = {
     -- WoW API
+    "BuffBarCooldownViewer",
+    "BuffIconCooldownViewer",
     "COOLDOWN_DURATION_SEC",
     "C_Spell",
     "C_SpellBook",

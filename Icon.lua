@@ -9,6 +9,14 @@ if not ns.AddonIsActive() then return end
 local DEFAULT_POSITION = { point = "CENTER", relativePoint = "CENTER", x = 0, y = 120 }
 local SIZE = 44
 
+-- For AttachTo: which point of the icon touches which point of the other frame.
+local SIDES = {
+    above = { point = "BOTTOM", relativePoint = "TOP" },
+    below = { point = "TOP", relativePoint = "BOTTOM" },
+    left = { point = "RIGHT", relativePoint = "LEFT" },
+    right = { point = "LEFT", relativePoint = "RIGHT" },
+}
+
 -- styles: { [name] = style object }, defaultStyle: name used for unknown names.
 -- Returns an icon object. Call once: WoW frames can't be destroyed.
 function ns.CreateIcon(styles, defaultStyle)
@@ -75,6 +83,15 @@ function ns.CreateIcon(styles, defaultStyle)
         position = position or DEFAULT_POSITION
         frame:ClearAllPoints()
         frame:SetPoint(position.point, UIParent, position.relativePoint, position.x, position.y)
+    end
+
+    -- Places the icon centred against one side of anchor: "above", "below",
+    -- "left" or "right". The game keeps it there when anchor moves or
+    -- changes size. Dragging the icon replaces this with a normal position.
+    function icon:AttachTo(anchor, side)
+        local sidePoints = SIDES[side]
+        frame:ClearAllPoints()
+        frame:SetPoint(sidePoints.point, anchor, sidePoints.relativePoint)
     end
 
     -- Calls fn(position) after the icon was dragged, with the same fields as SetPosition.

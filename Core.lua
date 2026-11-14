@@ -116,11 +116,21 @@ function handlers.ADDON_LOADED(addonName)
     if addonName ~= "OathOfLightReminder" then return end
     OathOfLightReminderDB = OathOfLightReminderDB or {}
 
-    -- Icon position, saved per character.
-    icon:SetPosition(OathOfLightReminderDB.position)
-    icon:SetOnMoved(function(position)
-        OathOfLightReminderDB.position = position
-    end)
+    -- Icon position, saved per character: either attached to a Cooldown
+    -- Manager frame (attachTo, attachSide), or where it was dragged to.
+    local cooldownManagerFrames = {
+        trackedBuffs = BuffIconCooldownViewer,
+        trackedBars = BuffBarCooldownViewer,
+    }
+    local function ApplyPosition()
+        local anchor = cooldownManagerFrames[OathOfLightReminderDB.attachTo]
+        if anchor then
+            icon:AttachTo(anchor, OathOfLightReminderDB.attachSide)
+        else
+            icon:SetPosition(OathOfLightReminderDB.position)
+        end
+    end
+    ApplyPosition()
 
     -- Display style, size and bar width, saved per character by the settings.
     -- Size and bar width are percentages.
@@ -137,7 +147,14 @@ function handlers.ADDON_LOADED(addonName)
             icon:SetPosition(nil)
         end,
         appearanceChanged = ApplyAppearance,
+        positionChanged = ApplyPosition,
     })
+
+    -- Dragging the icon detaches it from the Cooldown Manager.
+    icon:SetOnMoved(function(position)
+        OathOfLightReminderDB.position = position
+        settings:Detach()
+    end)
 
     -- Right-click the icon for the context menu.
     local contextMenu = ns.CreateContextMenu({

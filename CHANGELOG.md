@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- "Attach to Cooldown Manager" option in the settings: keeps the icon next to your Tracked Buffs or Tracked Bars, on the side you choose, and moves it along when you move them in Edit Mode.
+  Dragging the icon detaches it again.
+
+
 ## [0.2.0] - 2026-11-13
 
 ### Added
