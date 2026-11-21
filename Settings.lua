@@ -15,9 +15,10 @@ end
 
 -- Returns a settings object; settings:Open() shows the page. Call once.
 -- savedData: the table the settings store their values in
---   (style, barWidth, size, hideUntil, showWhen, attachTo, attachSide).
+--   (style, barWidth, size, hideUntil, showWhen, attachTo, attachSide, locked).
 -- oathDuration: how long Oath of Light lasts, in seconds.
--- actions: { resetPosition = function, appearanceChanged = function, positionChanged = function }
+-- actions: { resetPosition = function, appearanceChanged = function,
+--   positionChanged = function, lockChanged = function }
 function ns.CreateSettings(savedData, oathDuration, actions)
     local settings = {}
 
@@ -146,6 +147,14 @@ function ns.CreateSettings(savedData, oathDuration, actions)
     sideInitializer:SetParentInitializer(attachInitializer, function()
         return savedData.attachTo ~= "none"
     end)
+
+    Settings.CreateCheckbox(
+        category,
+        RegisterSetting("locked", Settings.VarType.Boolean, "Lock position", false, function()
+            actions.lockChanged()
+        end),
+        "Stops the icon from being dragged, so it can't be moved by accident. Right-clicking still works."
+    )
 
     layout:AddInitializer(CreateSettingsButtonInitializer(
         "Icon position",

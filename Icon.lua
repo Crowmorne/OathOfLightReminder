@@ -96,6 +96,15 @@ function ns.CreateIcon(styles, defaultStyle)
         frame:SetPoint(s.point, anchor, s.relativePoint, s.x * gap, s.y * gap)
     end
 
+    -- locked: true stops the icon from being dragged; right-clicking still works.
+    function icon:SetLocked(locked)
+        if locked then
+            frame:RegisterForDrag()
+        else
+            frame:RegisterForDrag("LeftButton")
+        end
+    end
+
     -- Calls fn(position) after the icon was dragged, with the same fields as SetPosition.
     function icon:SetOnMoved(fn)
         onMoved = fn

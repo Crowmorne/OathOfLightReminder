@@ -164,6 +164,12 @@ function handlers.ADDON_LOADED(addonName)
     end
     ApplyAppearance()
 
+    -- Lock: stops dragging, saved per character by the settings.
+    local function ApplyLock()
+        icon:SetLocked(OathOfLightReminderDB.locked)
+    end
+    ApplyLock()
+
     settings = ns.CreateSettings(OathOfLightReminderDB, DURATION, {
         resetPosition = function()
             OathOfLightReminderDB.position = nil
@@ -171,6 +177,7 @@ function handlers.ADDON_LOADED(addonName)
         end,
         appearanceChanged = ApplyAppearance,
         positionChanged = ApplyPosition,
+        lockChanged = ApplyLock,
     })
 
     -- Dragging the icon detaches it from the Cooldown Manager.

@@ -22,7 +22,7 @@ This addon shows a small icon with a countdown, so you always know when it's tim
 - **Hide until needed:** Keep the icon hidden until only a set amount of time is left, or until it's time to recast.
 - **In combat only:** Optionally hide the icon whenever you're out of combat.
 - **Survives reloads and relogs:** The timer picks up where it left off after `/reload` or logging back in.
-- **Movable:** Drag the icon wherever you like.
+- **Movable:** Drag the icon wherever you like, then lock it so it can't be moved by accident.
 - **Attach to the Cooldown Manager:** Keep the icon next to your Tracked Buffs or Tracked Bars, with the same spacing as their own icons.
   It moves along when you move them in Edit Mode.
 - **Right-click menu:** Reset the timer, or open the settings.

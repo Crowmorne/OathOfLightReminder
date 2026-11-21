@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- "Lock position" option in the settings: stops the icon from being dragged by accident.
+
+
 ## [0.3.0] - 2026-11-14
 
 ### Added
@@ -44,6 +49,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 - Settings page under Options → AddOns with a button to reset the icon's position.
 - The addon only runs for Paladins who know Oath of Light.
 
-[Unreleased]: https://github.com/Crowmorne/OathOfLightReminder/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/Crowmorne/OathOfLightReminder/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/Crowmorne/OathOfLightReminder/releases/tag/0.3.0
 [0.2.0]: https://github.com/Crowmorne/OathOfLightReminder/releases/tag/0.2.0
 [0.1.0]: https://github.com/Crowmorne/OathOfLightReminder/releases/tag/0.1.0
