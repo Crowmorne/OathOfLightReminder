@@ -7,17 +7,24 @@ local _, ns = ...
 local L = {}
 ns.L = L
 
+-- Game terms: the game's own texts, already in the client's language.
+L.COOLDOWN_MANAGER = COOLDOWN_VIEWER_LABEL
+L.MENU_SETTINGS = SETTINGS
+L.SETTING_DISPLAY_STYLE_DEFAULT = DEFAULT
+L.SETTING_SHOW_ALWAYS = ALWAYS
+L.SETTING_ATTACH_TO_NONE = NO
+L.SETTING_ATTACH_TO_TRACKED_BUFFS = HUD_EDIT_MODE_SYSTEM_TRACKED_BUFFS
+L.SETTING_ATTACH_TO_TRACKED_BARS = HUD_EDIT_MODE_SYSTEM_TRACKED_BUFF_BARS
+
 -- Icon
 L.ICON_RECAST = "Recast"
 
 -- Context menu
 L.MENU_RESET_TIMER = "Reset timer"
-L.MENU_SETTINGS = "Settings"
 
 -- Settings: display style
 L.SETTING_DISPLAY_STYLE = "Display style"
 L.SETTING_DISPLAY_STYLE_TOOLTIP = "How the icon looks."
-L.SETTING_DISPLAY_STYLE_DEFAULT = "Default"
 L.SETTING_DISPLAY_STYLE_ACTION_BAR = "Action Bar button"
 L.SETTING_DISPLAY_STYLE_TRACKED_BUFF = "Tracked Buff"
 L.SETTING_DISPLAY_STYLE_TRACKED_BAR = "Tracked Bar"
@@ -38,20 +45,19 @@ L.SETTING_HIDE_UNTIL_TOOLTIP = "Hides the icon until this much time is left.\n"
 
 L.SETTING_SHOW = "Show"
 L.SETTING_SHOW_TOOLTIP = "In combat only: the icon is hidden while you're out of combat, whatever the timer shows."
-L.SETTING_SHOW_ALWAYS = "Always"
 L.SETTING_SHOW_IN_COMBAT = "In combat only"
 
 -- Settings: position
-L.SETTING_ATTACH_TO = "Attach to Cooldown Manager"
-L.SETTING_ATTACH_TO_TOOLTIP = "Keeps the icon next to a Cooldown Manager frame, "
+-- %s: COOLDOWN_MANAGER
+L.SETTING_ATTACH_TO = "Attach to %s"
+-- %1$s: COOLDOWN_MANAGER, %2$s: SETTING_ATTACH_TO_NONE
+L.SETTING_ATTACH_TO_TOOLTIP = "Keeps the icon next to a %1$s frame, "
     .. "and moves it along when that frame moves. "
-    .. "Dragging the icon sets this back to No."
-L.SETTING_ATTACH_TO_NONE = "No"
-L.SETTING_ATTACH_TO_TRACKED_BUFFS = "Tracked Buffs"
-L.SETTING_ATTACH_TO_TRACKED_BARS = "Tracked Bars"
+    .. "Dragging the icon sets this back to %2$s."
 
 L.SETTING_SIDE = "Side"
-L.SETTING_SIDE_TOOLTIP = "Which side of the Cooldown Manager frame the icon is attached to."
+-- %s: COOLDOWN_MANAGER
+L.SETTING_SIDE_TOOLTIP = "Which side of the %s frame the icon is attached to."
 L.SETTING_SIDE_ABOVE = "Above"
 L.SETTING_SIDE_BELOW = "Below"
 L.SETTING_SIDE_LEFT = "Left"

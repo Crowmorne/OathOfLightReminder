@@ -16,6 +16,7 @@ globals = {
     "CreateFrame",
     "CreateFromMixins",
     "CreateSettingsButtonInitializer",
+    "GetLocale",
     "GetServerTime",
     "GetTime",
     "hooksecurefunc",
@@ -26,6 +27,15 @@ globals = {
     "SettingsPanel",
     "UIParent",
     "UnitClass",
+
+    -- WoW texts, in the client's language
+    "ALWAYS",
+    "COOLDOWN_VIEWER_LABEL",
+    "DEFAULT",
+    "HUD_EDIT_MODE_SYSTEM_TRACKED_BUFF_BARS",
+    "HUD_EDIT_MODE_SYSTEM_TRACKED_BUFFS",
+    "NO",
+    "SETTINGS",
 
     -- Oath of Light Reminder
     "OathOfLightReminderDB",

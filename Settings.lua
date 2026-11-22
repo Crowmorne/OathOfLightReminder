@@ -105,7 +105,8 @@ function ns.CreateSettings(savedData, oathDuration, actions)
         return savedData.attachTo ~= "trackedBars" or side == "above" or side == "below"
     end
 
-    local attachSetting = RegisterSetting("attachTo", Settings.VarType.String, L.SETTING_ATTACH_TO, "none",
+    local attachSetting = RegisterSetting("attachTo", Settings.VarType.String,
+        L.SETTING_ATTACH_TO:format(L.COOLDOWN_MANAGER), "none",
         function()
             if not SideFitsAttachTo() then
                 sideSetting:SetValue("below")
@@ -124,7 +125,7 @@ function ns.CreateSettings(savedData, oathDuration, actions)
             container:Add("trackedBars", L.SETTING_ATTACH_TO_TRACKED_BARS)
             return container:GetData()
         end,
-        L.SETTING_ATTACH_TO_TOOLTIP
+        L.SETTING_ATTACH_TO_TOOLTIP:format(L.COOLDOWN_MANAGER, L.SETTING_ATTACH_TO_NONE)
     )
 
     -- Built each time the dropdown opens, so it only lists sides that fit.
@@ -141,7 +142,7 @@ function ns.CreateSettings(savedData, oathDuration, actions)
             end
             return container:GetData()
         end,
-        L.SETTING_SIDE_TOOLTIP
+        L.SETTING_SIDE_TOOLTIP:format(L.COOLDOWN_MANAGER)
     )
     sideInitializer:SetParentInitializer(attachInitializer, function()
         return savedData.attachTo ~= "none"
