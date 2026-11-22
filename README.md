@@ -29,6 +29,7 @@ This addon shows a small icon with a countdown, so you always know when it's tim
 - **Settings page:** Under Options → AddOns → Oath of Light Reminder, change all of the above, or reset the icon to its default position.
   While the page is open, the icon is always shown, so you can see your changes.
   All settings are saved per character.
+- **Languages:** English and German.
 - **Only runs when needed:** The addon does nothing on other classes, or on Paladins who haven't learned Oath of Light.
 
 
@@ -80,7 +81,8 @@ luacheck .
 ### Texts
 
 All texts players see are in `Locales/enUS.lua`, and the code uses them by key, like `L.ICON_RECAST`.
-CI checks that every key the code uses exists there, and that the other language files only translate existing keys.
+Each other language has its own file, like `Locales/deDE.lua`, with only the texts it translates; anything missing stays English.
+CI checks that every key the code uses exists in `enUS.lua`, and that the other language files only translate existing keys.
 Run the same check locally with:
 
 ```sh

@@ -1,6 +1,7 @@
 ## Interface: 16001
 ## Title: Oath of Light Reminder
 ## Notes: Reminds Paladins to keep Oath of Light active on an ally.
+## Notes-deDE: Erinnert Paladine daran, Eid des Lichts auf einem Verbündeten aktiv zu halten.
 ## IconTexture: 135909
 ## Author: Norwig Crowmorne
 ## Version: @project-version@
@@ -9,12 +10,14 @@
 
 # Load order:
 # - AddonIsActive.lua comes first: every file except the texts calls ns.AddonIsActive() when it loads.
-# - Locales\enUS.lua comes next: files read the texts table (ns.L) when they load.
+# - Locales\enUS.lua comes next: it creates the texts table (ns.L), which files read when they load.
+# - The other languages follow enUS.lua and replace the texts they translate.
 # - Core.lua comes last: it connects the other files and starts the addon.
 # - All other files only use each other from inside functions, so their order doesn't matter.
 AddonIsActive.lua
 
 Locales\enUS.lua
+Locales\deDE.lua
 
 Icon.lua
 IconStyle.lua

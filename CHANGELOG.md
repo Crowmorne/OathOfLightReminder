@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- German translation.
+
+
 ## [0.4.0] - 2026-11-21
 
 ### Added
