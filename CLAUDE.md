@@ -41,6 +41,11 @@ It reminds Paladins to recast the talent _Oath of Light_ (lasts 5 minutes) on an
 
 - **Every text players see goes into `Locales/enUS.lua`**, never as plain text in the code.
   The code uses it as `L.SOME_KEY`, written out in full; never `L[...]`.
+- **Game terms use the game's own texts**, for example `SETTINGS`, `NO` or `HUD_EDIT_MODE_SYSTEM_TRACKED_BUFFS`, so every client shows them in its language.
+  `enUS.lua` assigns them to keys like any other text, and the other language files don't set those keys.
+  Texts that contain a game term get a `%s` for it.
+  Find which name holds which text in https://wago.tools/db2/GlobalStrings/csv (English; `?locale=deDE` and so on for the game's wording in other languages), and check that the Forever interface code uses it (`forever` branch of Gethe/wow-ui-source).
+  Translated spell names are on Wowhead's Forever pages, for example https://www.wowhead.com/forever/de/spell=1328548.
 - **Keys are prefixed by where the text appears:** `ICON_`, `MENU_`, or `SETTING_<setting>` with `_TOOLTIP` or `_<option>`.
 - **Other languages** live in `Locales/<locale>.lua`, loaded after `enUS.lua` in the TOC, and only set the keys they translate.
 - **New or changed English texts** also get a translation in every language file, in the same change.
