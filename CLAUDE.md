@@ -37,6 +37,16 @@ It reminds Paladins to recast the talent _Oath of Light_ (lasts 5 minutes) on an
 - **Every user-facing change also updates the README's feature list**, in the same change as the code.
 
 
+## Texts
+
+- **Every text players see goes into `Locales/enUS.lua`**, never as plain text in the code.
+  The code uses it as `L.SOME_KEY`, written out in full; never `L[...]`.
+- **Keys are prefixed by where the text appears:** `ICON_`, `MENU_`, or `SETTING_<setting>` with `_TOOLTIP` or `_<option>`.
+- **Other languages** live in `Locales/<locale>.lua`, loaded after `enUS.lua` in the TOC, and only set the keys they translate.
+- **New or changed English texts** also get a translation in every language file, in the same change.
+- **`bash .github/scripts/check-locales.sh`** checks the keys; run it with luacheck.
+
+
 ## Verified game API facts (tested in game on Forever)
 
 - **Oath of Light:** spell ID `1328548`.
