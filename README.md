@@ -75,3 +75,14 @@ Then run it from the repository root:
 ```sh
 luacheck .
 ```
+
+
+### Texts
+
+All texts players see are in `Locales/enUS.lua`, and the code uses them by key, like `L.ICON_RECAST`.
+CI checks that every key the code uses exists there, and that the other language files only translate existing keys.
+Run the same check locally with:
+
+```sh
+bash .github/scripts/check-locales.sh
+```
