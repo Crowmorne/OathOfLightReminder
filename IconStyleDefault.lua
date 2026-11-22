@@ -5,6 +5,8 @@ local _, ns = ...
 
 if not ns.AddonIsActive() then return end
 
+local L = ns.L
+
 function ns.CreateDefaultStyle()
     local style = CreateFromMixins(ns.IconStyle)
 
@@ -29,7 +31,7 @@ function ns.CreateDefaultStyle()
     end
 
     function style:ShowExpired()
-        text:SetText("Recast")
+        text:SetText(L.ICON_RECAST)
     end
 
     function style:ShowRemaining(seconds)

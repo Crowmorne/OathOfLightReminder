@@ -4,6 +4,8 @@ local _, ns = ...
 
 if not ns.AddonIsActive() then return end
 
+local L = ns.L
+
 -- actions: { resetTimer = function, openSettings = function }
 -- Returns a menu object; menu:Open(owner) shows it next to owner.
 function ns.CreateContextMenu(actions)
@@ -11,9 +13,9 @@ function ns.CreateContextMenu(actions)
 
     function menu:Open(owner)
         MenuUtil.CreateContextMenu(owner, function(_, rootDescription)
-            rootDescription:CreateButton("Reset timer", function() actions.resetTimer() end)
+            rootDescription:CreateButton(L.MENU_RESET_TIMER, function() actions.resetTimer() end)
             rootDescription:CreateDivider()
-            rootDescription:CreateButton("Settings", function() actions.openSettings() end)
+            rootDescription:CreateButton(L.MENU_SETTINGS, function() actions.openSettings() end)
         end)
     end
 

@@ -4,6 +4,8 @@ local _, ns = ...
 
 if not ns.AddonIsActive() then return end
 
+local L = ns.L
+
 -- Slider from 50% to 200% in steps of step percent, labelled like "120%".
 local function PercentSliderOptions(step)
     local options = Settings.CreateSliderOptions(50, 200, step)
@@ -40,24 +42,24 @@ function ns.CreateSettings(savedData, oathDuration, actions)
 
     local styleInitializer = Settings.CreateDropdown(
         category,
-        RegisterSetting("style", Settings.VarType.String, "Display style", "default", AppearanceChanged),
+        RegisterSetting("style", Settings.VarType.String, L.SETTING_DISPLAY_STYLE, "default", AppearanceChanged),
         function()
             local container = Settings.CreateControlTextContainer()
-            container:Add("default", "Default")
-            container:Add("actionBar", "Action Bar button")
-            container:Add("trackedBuff", "Tracked Buff")
-            container:Add("trackedBar", "Tracked Bar")
+            container:Add("default", L.SETTING_DISPLAY_STYLE_DEFAULT)
+            container:Add("actionBar", L.SETTING_DISPLAY_STYLE_ACTION_BAR)
+            container:Add("trackedBuff", L.SETTING_DISPLAY_STYLE_TRACKED_BUFF)
+            container:Add("trackedBar", L.SETTING_DISPLAY_STYLE_TRACKED_BAR)
             return container:GetData()
         end,
-        "How the icon looks."
+        L.SETTING_DISPLAY_STYLE_TOOLTIP
     )
 
     -- Only used by the Tracked Bar style; greyed out for the others.
     local barWidthInitializer = Settings.CreateSlider(
         category,
-        RegisterSetting("barWidth", Settings.VarType.Number, "Bar width", 100, AppearanceChanged),
+        RegisterSetting("barWidth", Settings.VarType.Number, L.SETTING_BAR_WIDTH, 100, AppearanceChanged),
         PercentSliderOptions(1), -- like the Cooldown Manager's bar width
-        "Width of the bar in the Tracked Bar style."
+        L.SETTING_BAR_WIDTH_TOOLTIP
     )
     barWidthInitializer:SetParentInitializer(styleInitializer, function()
         return savedData.style == "trackedBar"
@@ -65,9 +67,9 @@ function ns.CreateSettings(savedData, oathDuration, actions)
 
     Settings.CreateSlider(
         category,
-        RegisterSetting("size", Settings.VarType.Number, "Size", 100, AppearanceChanged),
+        RegisterSetting("size", Settings.VarType.Number, L.SETTING_SIZE, 100, AppearanceChanged),
         PercentSliderOptions(10), -- like the Cooldown Manager's icon size
-        "Size of the icon or bar."
+        L.SETTING_SIZE_TOOLTIP
     )
 
     -- Seconds, shown as "m:ss". The default shows the icon for the whole Oath.
@@ -78,26 +80,24 @@ function ns.CreateSettings(savedData, oathDuration, actions)
     hideUntilOptions:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, FormatTime)
     Settings.CreateSlider(
         category,
-        RegisterSetting("hideUntil", Settings.VarType.Number, "Hide until", oathDuration),
+        RegisterSetting("hideUntil", Settings.VarType.Number, L.SETTING_HIDE_UNTIL, oathDuration),
         hideUntilOptions,
-        "Hides the icon until this much time is left.\n"
-            .. FormatTime(oathDuration) .. ": always shown.\n"
-            .. "0:00: only shown once it's time to recast."
+        L.SETTING_HIDE_UNTIL_TOOLTIP:format(FormatTime(oathDuration), FormatTime(0))
     )
 
     Settings.CreateDropdown(
         category,
-        RegisterSetting("showWhen", Settings.VarType.String, "Show", "always"),
+        RegisterSetting("showWhen", Settings.VarType.String, L.SETTING_SHOW, "always"),
         function()
             local container = Settings.CreateControlTextContainer()
-            container:Add("always", "Always")
-            container:Add("inCombat", "In combat only")
+            container:Add("always", L.SETTING_SHOW_ALWAYS)
+            container:Add("inCombat", L.SETTING_SHOW_IN_COMBAT)
             return container:GetData()
         end,
-        "In combat only: the icon is hidden while you're out of combat, whatever the timer shows."
+        L.SETTING_SHOW_TOOLTIP
     )
 
-    local sideSetting = RegisterSetting("attachSide", Settings.VarType.String, "Side", "below", PositionChanged)
+    local sideSetting = RegisterSetting("attachSide", Settings.VarType.String, L.SETTING_SIDE, "below", PositionChanged)
 
     -- Tracked Bars always stack vertically, so only above and below continue them.
     local function SideFitsAttachTo()
@@ -105,7 +105,7 @@ function ns.CreateSettings(savedData, oathDuration, actions)
         return savedData.attachTo ~= "trackedBars" or side == "above" or side == "below"
     end
 
-    local attachSetting = RegisterSetting("attachTo", Settings.VarType.String, "Attach to Cooldown Manager", "none",
+    local attachSetting = RegisterSetting("attachTo", Settings.VarType.String, L.SETTING_ATTACH_TO, "none",
         function()
             if not SideFitsAttachTo() then
                 sideSetting:SetValue("below")
@@ -119,13 +119,12 @@ function ns.CreateSettings(savedData, oathDuration, actions)
         attachSetting,
         function()
             local container = Settings.CreateControlTextContainer()
-            container:Add("none", "No")
-            container:Add("trackedBuffs", "Tracked Buffs")
-            container:Add("trackedBars", "Tracked Bars")
+            container:Add("none", L.SETTING_ATTACH_TO_NONE)
+            container:Add("trackedBuffs", L.SETTING_ATTACH_TO_TRACKED_BUFFS)
+            container:Add("trackedBars", L.SETTING_ATTACH_TO_TRACKED_BARS)
             return container:GetData()
         end,
-        "Keeps the icon next to a Cooldown Manager frame, and moves it along when that frame moves. "
-            .. "Dragging the icon sets this back to No."
+        L.SETTING_ATTACH_TO_TOOLTIP
     )
 
     -- Built each time the dropdown opens, so it only lists sides that fit.
@@ -134,15 +133,15 @@ function ns.CreateSettings(savedData, oathDuration, actions)
         sideSetting,
         function()
             local container = Settings.CreateControlTextContainer()
-            container:Add("above", "Above")
-            container:Add("below", "Below")
+            container:Add("above", L.SETTING_SIDE_ABOVE)
+            container:Add("below", L.SETTING_SIDE_BELOW)
             if savedData.attachTo ~= "trackedBars" then
-                container:Add("left", "Left")
-                container:Add("right", "Right")
+                container:Add("left", L.SETTING_SIDE_LEFT)
+                container:Add("right", L.SETTING_SIDE_RIGHT)
             end
             return container:GetData()
         end,
-        "Which side of the Cooldown Manager frame the icon is attached to."
+        L.SETTING_SIDE_TOOLTIP
     )
     sideInitializer:SetParentInitializer(attachInitializer, function()
         return savedData.attachTo ~= "none"
@@ -150,20 +149,20 @@ function ns.CreateSettings(savedData, oathDuration, actions)
 
     Settings.CreateCheckbox(
         category,
-        RegisterSetting("locked", Settings.VarType.Boolean, "Lock position", false, function()
+        RegisterSetting("locked", Settings.VarType.Boolean, L.SETTING_LOCK_POSITION, false, function()
             actions.lockChanged()
         end),
-        "Stops the icon from being dragged, so it can't be moved by accident. Right-clicking still works."
+        L.SETTING_LOCK_POSITION_TOOLTIP
     )
 
     layout:AddInitializer(CreateSettingsButtonInitializer(
-        "Icon position",
-        "Reset position",
+        L.SETTING_ICON_POSITION,
+        L.SETTING_ICON_POSITION_BUTTON,
         function()
             attachSetting:SetValue("none")
             actions.resetPosition()
         end,
-        "Moves the icon back to its default position.",
+        L.SETTING_ICON_POSITION_TOOLTIP,
         true
     ))
 

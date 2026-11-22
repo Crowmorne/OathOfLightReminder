@@ -8,10 +8,14 @@
 ## SavedVariablesPerCharacter: OathOfLightReminderDB
 
 # Load order:
-# - AddonIsActive.lua comes first: every file calls ns.AddonIsActive() when it loads.
+# - AddonIsActive.lua comes first: every file except the texts calls ns.AddonIsActive() when it loads.
+# - Locales\enUS.lua comes next: files read the texts table (ns.L) when they load.
 # - Core.lua comes last: it connects the other files and starts the addon.
 # - All other files only use each other from inside functions, so their order doesn't matter.
 AddonIsActive.lua
+
+Locales\enUS.lua
+
 Icon.lua
 IconStyle.lua
 IconStyleDefault.lua
@@ -20,4 +24,5 @@ IconStyleTrackedBuff.lua
 IconStyleTrackedBar.lua
 Settings.lua
 ContextMenu.lua
+
 Core.lua
