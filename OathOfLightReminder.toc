@@ -3,6 +3,7 @@
 ## Notes: Reminds Paladins to keep Oath of Light active on an ally.
 ## Notes-deDE: Erinnert Paladine daran, Eid des Lichts auf einem Verbündeten aktiv zu halten.
 ## Notes-frFR: Rappelle aux paladins de maintenir Serment de lumière actif sur un allié.
+## Notes-esES: Recuerda a los paladines mantener Juramento de luz activo en un aliado.
 ## IconTexture: 135909
 ## Author: Norwig Crowmorne
 ## Version: @project-version@
@@ -20,6 +21,7 @@ AddonIsActive.lua
 Locales\enUS.lua
 Locales\deDE.lua
 Locales\frFR.lua
+Locales\esES.lua
 
 Icon.lua
 IconStyle.lua
