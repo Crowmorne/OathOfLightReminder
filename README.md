@@ -29,7 +29,9 @@ This addon shows a small icon with a countdown, so you always know when it's tim
 - **Settings page:** Under Options → AddOns → Oath of Light Reminder, change all of the above, or reset the icon to its default position.
   While the page is open, the icon is always shown, so you can see your changes.
   All settings are saved per character.
-- **Languages:** English and German.
+- **Languages:** English, German and French.
+  The French translation hasn't been checked by a native speaker yet.
+  If something reads oddly or doesn't match the game's wording in any language, please let me know in the [comments on CurseForge](https://www.curseforge.com/wow/addons/oath-of-light-reminder/comments) or on [GitHub](https://github.com/Crowmorne/OathOfLightReminder/issues).
 - **Only runs when needed:** The addon does nothing on other classes, or on Paladins who haven't learned Oath of Light.
 
 
