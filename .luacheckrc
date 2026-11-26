@@ -10,7 +10,6 @@ globals = {
     -- WoW API
     "BuffBarCooldownViewer",
     "BuffIconCooldownViewer",
-    "COOLDOWN_DURATION_SEC",
     "C_Spell",
     "C_SpellBook",
     "CreateFrame",
@@ -23,6 +22,7 @@ globals = {
     "InCombatLockdown",
     "MenuUtil",
     "MinimalSliderWithSteppersMixin",
+    "SecondsToTimeAbbrev",
     "Settings",
     "SettingsPanel",
     "UIParent",

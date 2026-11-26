@@ -38,7 +38,7 @@ L.SETTING_SIZE_TOOLTIP = "Size of the icon or bar."
 
 -- Settings: visibility
 L.SETTING_HIDE_UNTIL = "Hide until"
--- %1$s: the full duration (5:00), %2$s: zero time (0:00)
+-- %1$s: the full duration (60:00), %2$s: zero time (0:00)
 L.SETTING_HIDE_UNTIL_TOOLTIP = "Hides the icon until this much time is left.\n"
     .. "%1$s: always shown.\n"
     .. "%2$s: only shown once it's time to recast."

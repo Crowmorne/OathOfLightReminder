@@ -7,6 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- The countdown now runs for 60 minutes, matching the longer Oath of Light.
+- The Tracked Bar style shows the time left in minutes, like your buffs, and in seconds near the end.
+- "Hide until" now goes up to 10 minutes in steps of one minute, or 60:00 to always show the icon.
+  A previously saved time is rounded to the nearest minute.
+  If it was at 5:00, which used to mean always shown, the icon now stays hidden until 5 minutes are left; set it to 60:00 to always show it.
+
+
 ## [1.0.0] - 2026-11-24
 
 ### Added

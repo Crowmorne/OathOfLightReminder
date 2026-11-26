@@ -28,7 +28,7 @@ L.SETTING_SIZE_TOOLTIP = "Tamaño del icono o de la barra."
 
 -- Settings: visibility
 L.SETTING_HIDE_UNTIL = "Ocultar hasta"
--- %1$s: the full duration (5:00), %2$s: zero time (0:00)
+-- %1$s: the full duration (60:00), %2$s: zero time (0:00)
 L.SETTING_HIDE_UNTIL_TOOLTIP = "Oculta el icono hasta que solo quede este tiempo.\n"
     .. "%1$s: siempre visible.\n"
     .. "%2$s: solo visible cuando toca volver a lanzarlo."

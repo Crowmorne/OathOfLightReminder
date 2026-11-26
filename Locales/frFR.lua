@@ -28,7 +28,7 @@ L.SETTING_SIZE_TOOLTIP = "Taille de l’icône ou de la barre."
 
 -- Settings: visibility
 L.SETTING_HIDE_UNTIL = "Masquer jusqu’à"
--- %1$s: the full duration (5:00), %2$s: zero time (0:00)
+-- %1$s: the full duration (60:00), %2$s: zero time (0:00)
 L.SETTING_HIDE_UNTIL_TOOLTIP = "Masque l’icône jusqu’à ce qu’il ne reste plus que ce temps.\n"
     .. "%1$s : toujours affichée.\n"
     .. "%2$s : affichée seulement quand il est temps de relancer."

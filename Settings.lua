@@ -72,15 +72,41 @@ function ns.CreateSettings(savedData, oathDuration, actions)
         L.SETTING_SIZE_TOOLTIP
     )
 
-    -- Seconds, shown as "m:ss". The default shows the icon for the whole Oath.
+    -- Hide until: saved in seconds, shown as "m:ss". Either whole minutes from
+    -- 0:00 to 10:00, or the whole Oath (the default), which always shows the icon.
+    -- The slider moves in steps: 0 to 10 for the minutes, 11 for the whole Oath.
     local function FormatTime(seconds)
         return ("%d:%02d"):format(math.floor(seconds / 60), seconds % 60)
     end
-    local hideUntilOptions = Settings.CreateSliderOptions(0, oathDuration, 5)
-    hideUntilOptions:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, FormatTime)
+    local MAX_MINUTES = 10
+    local WHOLE_OATH_STEP = MAX_MINUTES + 1
+
+    -- Saved values that aren't whole minutes are rounded to the nearest one.
+    if savedData.hideUntil == nil then
+        savedData.hideUntil = oathDuration
+    elseif savedData.hideUntil ~= oathDuration then
+        savedData.hideUntil = math.floor(savedData.hideUntil / 60 + 0.5) * 60
+    end
+
+    local function StepToSeconds(step)
+        return step == WHOLE_OATH_STEP and oathDuration or step * 60
+    end
+    local hideUntilSetting = Settings.RegisterProxySetting(
+        category, "OathOfLightReminder_hideUntil", Settings.VarType.Number,
+        L.SETTING_HIDE_UNTIL, WHOLE_OATH_STEP,
+        function()
+            local seconds = savedData.hideUntil
+            return seconds == oathDuration and WHOLE_OATH_STEP or seconds / 60
+        end,
+        function(step) savedData.hideUntil = StepToSeconds(step) end
+    )
+    local hideUntilOptions = Settings.CreateSliderOptions(0, WHOLE_OATH_STEP, 1)
+    hideUntilOptions:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, function(step)
+        return FormatTime(StepToSeconds(step))
+    end)
     Settings.CreateSlider(
         category,
-        RegisterSetting("hideUntil", Settings.VarType.Number, L.SETTING_HIDE_UNTIL, oathDuration),
+        hideUntilSetting,
         hideUntilOptions,
         L.SETTING_HIDE_UNTIL_TOOLTIP:format(FormatTime(oathDuration), FormatTime(0))
     )

@@ -36,7 +36,7 @@ function ns.CreateTrackedBarStyle(spellId)
         if left and left > 0 then
             bar:SetMinMaxValues(0, duration)
             bar:SetValue(left)
-            remaining:SetText(COOLDOWN_DURATION_SEC:format(left))
+            remaining:SetFormattedText(SecondsToTimeAbbrev(left)) -- like your buffs: "60 m", "45 s"
             pip:Show()
         else
             bar:SetMinMaxValues(0, 0)

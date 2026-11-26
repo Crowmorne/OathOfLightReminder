@@ -5,7 +5,7 @@
 
 A simple on-screen timer that reminds Holy Paladins to keep Oath of Light up.
 
-Oath of Light lasts 5 minutes, and it's easy to forget to recast it in the middle of a dungeon.
+Oath of Light lasts 60 minutes, and over a long session of dungeons it's easy to lose track of when it runs out.
 This addon shows a small icon with a countdown, so you always know when it's time to put your Oath back on someone.
 
 
@@ -17,9 +17,9 @@ This addon shows a small icon with a countdown, so you always know when it's tim
   - **Default:** the countdown and "Recast" below the icon.
   - **Action Bar button:** the countdown on the icon, like a spell on your action bars.
   - **Tracked Buff:** looks like a tracked buff in the Cooldown Manager.
-  - **Tracked Bar:** looks like a tracked bar in the Cooldown Manager, with the spell name and the time left.
+  - **Tracked Bar:** looks like a tracked bar in the Cooldown Manager, with the spell name and the time left in minutes, like your buffs.
 - **Size:** Scale the icon or bar, and set the bar's width for the Tracked Bar style.
-- **Hide until needed:** Keep the icon hidden until only a set amount of time is left, or until it's time to recast.
+- **Hide until needed:** Keep the icon hidden until only 1 to 10 minutes are left, or until it's time to recast.
 - **In combat only:** Optionally hide the icon whenever you're out of combat.
 - **Survives reloads and relogs:** The timer picks up where it left off after `/reload` or logging back in.
 - **Movable:** Drag the icon wherever you like, then lock it so it can't be moved by accident.
@@ -38,7 +38,7 @@ This addon shows a small icon with a countdown, so you always know when it's tim
 ## How it works
 
 The addon tracks your cast of Oath of Light, not the buff itself.
-Buff data on other players isn't available to addons in dungeons, so the timer simply counts down 5 minutes from your cast.
+Buff data on other players isn't available to addons in dungeons, so the timer simply counts down 60 minutes from your cast.
 
 This means the icon can't tell if the Oath ends early, for example when your target dies, leaves the group or removes the buff.
 For a "time to recast" reminder this works well in practice.

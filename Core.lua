@@ -3,7 +3,7 @@ local _, ns = ... -- private table shared by all files of this addon
 if not ns.AddonIsActive() then return end
 
 local SPELL_ID = 1328548 -- Oath of Light
-local DURATION = 300     -- 5 minutes
+local DURATION = 3600    -- 60 minutes
 
 local trackedBar = ns.CreateTrackedBarStyle(SPELL_ID)
 

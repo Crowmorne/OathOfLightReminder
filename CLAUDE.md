@@ -1,7 +1,7 @@
 # Oath of Light Reminder
 
 A WoW addon for the **WoW Forever** client.
-It reminds Paladins to recast the talent _Oath of Light_ (lasts 5 minutes) on an ally.
+It reminds Paladins to recast the talent _Oath of Light_ (lasts 60 minutes) on an ally.
 
 
 ## Decisions
@@ -9,7 +9,7 @@ It reminds Paladins to recast the talent _Oath of Light_ (lasts 5 minutes) on an
 - **Track the cast, never the buff.**
   Don't scan party or raid members, match names or read auras; names and aura data are secret in dungeons (see below).
   The icon can't tell if the Oath ends early, and that's fine.
-- **The 5-minute duration is hard-coded.**
+- **The 60-minute duration is hard-coded.**
   There is no API for a spell's duration.
 - **All saved data is per character.**
   Don't add account-wide saved variables.

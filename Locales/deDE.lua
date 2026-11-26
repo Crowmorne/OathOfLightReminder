@@ -28,7 +28,7 @@ L.SETTING_SIZE_TOOLTIP = "Größe des Symbols oder der Leiste."
 
 -- Settings: visibility
 L.SETTING_HIDE_UNTIL = "Ausblenden bis"
--- %1$s: the full duration (5:00), %2$s: zero time (0:00)
+-- %1$s: the full duration (60:00), %2$s: zero time (0:00)
 L.SETTING_HIDE_UNTIL_TOOLTIP = "Blendet das Symbol aus, bis nur noch so viel Zeit übrig ist.\n"
     .. "%1$s: immer angezeigt.\n"
     .. "%2$s: erst angezeigt, wenn es Zeit zum Erneuern ist."
