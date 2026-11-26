@@ -6,6 +6,7 @@
 > **Please note:** Since [Blizzard's hotfix on November 25, 2026](https://worldofwarcraft.blizzard.com/en-gb/news/24315281), Oath of Light lasts 60 minutes instead of 5.
 > Recasting it is rarely urgent now, so this addon is much less useful than it used to be.
 > It still works, and can help you keep track over a long session of dungeons.
+> If you want to see whether your Oath is still on someone, [PallyPower](https://www.curseforge.com/wow/addons/pally-power) shows its time left for your group or raid and can cast it on your tank for you.
 
 A simple on-screen timer that reminds Holy Paladins to keep Oath of Light up.
 
