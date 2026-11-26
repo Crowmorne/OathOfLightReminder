@@ -88,3 +88,4 @@ It reminds Paladins to recast the talent _Oath of Light_ (lasts 60 minutes) on a
 - **Never record history.**
   Comments, READMEs, CLAUDE.md and code describe the current state only.
   Never mention what was tried, built, removed, rejected or discussed in a session.
+  Game changes that affect players, like the README's note about the hotfix, are not development history and stay.

@@ -3,6 +3,10 @@
 
 # Oath of Light Reminder
 
+> **Please note:** Since [Blizzard's hotfix on November 25, 2026](https://worldofwarcraft.blizzard.com/en-gb/news/24315281), Oath of Light lasts 60 minutes instead of 5.
+> Recasting it is rarely urgent now, so this addon is much less useful than it used to be.
+> It still works, and can help you keep track over a long session of dungeons.
+
 A simple on-screen timer that reminds Holy Paladins to keep Oath of Light up.
 
 Oath of Light lasts 60 minutes, and over a long session of dungeons it's easy to lose track of when it runs out.

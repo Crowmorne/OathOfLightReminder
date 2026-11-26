@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 
 ### Changed
 
-- The countdown now runs for 60 minutes, matching the longer Oath of Light.
+- The countdown now runs for 60 minutes: Oath of Light lasts that long since [Blizzard's hotfix on November 25, 2026](https://worldofwarcraft.blizzard.com/en-gb/news/24315281).
+  With an Oath that lasts an hour, you'll need this reminder much less often than before.
 - The Tracked Bar style shows the time left in minutes, like your buffs, and in seconds near the end.
 - "Hide until" now goes up to 10 minutes in steps of one minute, or 60:00 to always show the icon.
   A previously saved time is rounded to the nearest minute.
