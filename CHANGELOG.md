@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-11-26
+
 ### Changed
 
 - The countdown now runs for 60 minutes: Oath of Light lasts that long since [Blizzard's hotfix on November 25, 2026](https://worldofwarcraft.blizzard.com/en-gb/news/24315281).
@@ -76,7 +78,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 - Settings page under Options → AddOns with a button to reset the icon's position.
 - The addon only runs for Paladins who know Oath of Light.
 
-[Unreleased]: https://github.com/Crowmorne/OathOfLightReminder/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/Crowmorne/OathOfLightReminder/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/Crowmorne/OathOfLightReminder/releases/tag/1.1.0
 [1.0.0]: https://github.com/Crowmorne/OathOfLightReminder/releases/tag/1.0.0
 [0.5.0]: https://github.com/Crowmorne/OathOfLightReminder/releases/tag/0.5.0
 [0.4.0]: https://github.com/Crowmorne/OathOfLightReminder/releases/tag/0.4.0
